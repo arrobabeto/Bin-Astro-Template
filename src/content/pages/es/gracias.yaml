@@ -1,0 +1,21 @@
+# Página de agradecimiento tras enviar un formulario sin JavaScript.
+# Es noindex: no aparece en el sitemap ni en Google.
+title: Gracias por escribirnos
+description: Recibimos tu mensaje. Te responderemos lo antes posible.
+seo:
+  noindex: true
+
+sections:
+  - type: prose
+    id: mensaje
+    heading: Gracias por escribirnos
+    body: >-
+      Recibimos tu mensaje y te responderemos lo antes posible, normalmente en
+      menos de un día hábil.
+
+  - type: cta
+    id: volver
+    heading: Mientras tanto, conoce más de nosotros
+    cta:
+      label: Volver al inicio
+      href: /

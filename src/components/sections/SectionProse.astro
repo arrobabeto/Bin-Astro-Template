@@ -1,0 +1,30 @@
+---
+import Heading from "~/components/ui/Heading.astro"
+import Paragraphs from "~/components/ui/Paragraphs.astro"
+import { bf } from "~/lib/bf"
+
+import type { SectionProps } from "./registry"
+
+type Props = SectionProps<"prose">
+
+const { id, area, isFirst, heading, body } = Astro.props
+---
+
+<section id={id} class="py-16 md:py-20" {...bf(area, id, "shell", "container")}>
+  <div class="container-page">
+    {heading && (
+      <Heading
+        isFirst={isFirst}
+        class="text-ink text-3xl font-bold tracking-tight sm:text-4xl"
+        {...bf(area, id, "heading", "style_target")}
+      >
+        {heading}
+      </Heading>
+    )}
+    <Paragraphs
+      text={body}
+      class="prose-content mt-6"
+      {...bf(area, id, "body", "copy")}
+    />
+  </div>
+</section>

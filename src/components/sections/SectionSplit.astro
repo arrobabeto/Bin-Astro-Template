@@ -1,0 +1,67 @@
+---
+import { Image } from "astro:assets"
+
+import ButtonLink from "~/components/ui/ButtonLink.astro"
+import Heading from "~/components/ui/Heading.astro"
+import Paragraphs from "~/components/ui/Paragraphs.astro"
+import { bf } from "~/lib/bf"
+
+import type { SectionProps } from "./registry"
+
+type Props = SectionProps<"split">
+
+const { id, area, isFirst, eyebrow, heading, body, image, imagePosition, cta } =
+  Astro.props
+---
+
+<section
+  id={id}
+  class="bg-surface-muted py-16 md:py-24"
+  {...bf(area, id, "shell", "container")}
+>
+  <div class="container-page grid items-center gap-12 lg:grid-cols-2">
+    <Image
+      src={image.src}
+      alt={image.alt}
+      widths={[480, 768, 1024]}
+      sizes="(min-width: 1024px) 50vw, 100vw"
+      priority={isFirst}
+      class:list={[
+        "rounded-card aspect-[4/3] w-full object-cover",
+        imagePosition === "left" ? "lg:order-first" : "lg:order-last",
+      ]}
+      {...bf(area, id, "image", "image", { presentation: "img" })}
+    />
+    <div>
+      {eyebrow && (
+        <p
+          class="text-brand-700 text-sm font-semibold tracking-wide uppercase"
+          {...bf(area, id, "eyebrow", "copy")}
+        >
+          {eyebrow}
+        </p>
+      )}
+      <Heading
+        isFirst={isFirst}
+        class="text-ink mt-2 text-3xl font-bold tracking-tight sm:text-4xl"
+        {...bf(area, id, "heading", "style_target")}
+      >
+        {heading}
+      </Heading>
+      <Paragraphs
+        text={body}
+        class="text-muted mt-6 space-y-4 text-lg leading-8"
+        {...bf(area, id, "body", "copy")}
+      />
+      {cta && (
+        <ButtonLink
+          href={cta.href}
+          class="mt-8"
+          {...bf(area, id, "cta", "chrome_denied")}
+        >
+          {cta.label}
+        </ButtonLink>
+      )}
+    </div>
+  </div>
+</section>

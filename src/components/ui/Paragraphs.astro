@@ -1,0 +1,18 @@
+---
+/** Convierte texto con líneas en blanco en párrafos <p>. */
+import type { HTMLAttributes } from "astro/types"
+
+type Props = HTMLAttributes<"div"> & { text: string }
+
+const { text, ...rest } = Astro.props
+const paragraphs = text
+  .split(/\n\s*\n/)
+  .map((paragraph) => paragraph.trim())
+  .filter(Boolean)
+---
+
+<div {...rest}>
+  {paragraphs.map((paragraph) => (
+    <p>{paragraph}</p>
+  ))}
+</div>

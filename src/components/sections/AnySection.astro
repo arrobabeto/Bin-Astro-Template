@@ -1,0 +1,45 @@
+---
+/**
+ * Renderiza una sección según su `type`. Para agregar un tipo nuevo:
+ * schema + componente + entrada en registry.ts, en este mapa y en
+ * src/lib/bsi-fields.ts (skill `nueva-seccion`; check:sections lo valida).
+ */
+import type { Locale } from "~/config/locales"
+import type { SectionType } from "~/lib/bsi-fields"
+
+import type { SectionData } from "./registry"
+import SectionContact from "./SectionContact.astro"
+import SectionCta from "./SectionCta.astro"
+import SectionFaq from "./SectionFaq.astro"
+import SectionFeatures from "./SectionFeatures.astro"
+import SectionHero from "./SectionHero.astro"
+import SectionNewsletter from "./SectionNewsletter.astro"
+import SectionProse from "./SectionProse.astro"
+import SectionSplit from "./SectionSplit.astro"
+
+interface Props {
+  section: SectionData
+  area: string
+  locale: Locale
+  isFirst: boolean
+}
+
+const { section, area, locale, isFirst } = Astro.props
+
+const components = {
+  hero: SectionHero,
+  features: SectionFeatures,
+  split: SectionSplit,
+  cta: SectionCta,
+  faq: SectionFaq,
+  prose: SectionProse,
+  contact: SectionContact,
+  newsletter: SectionNewsletter,
+} satisfies Record<SectionType, unknown>
+
+const Component = components[section.type] as (
+  props: Record<string, unknown>,
+) => unknown
+---
+
+<Component {...section} area={area} locale={locale} isFirst={isFirst} />

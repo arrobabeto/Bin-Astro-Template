@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "skills": {
+    "hallmark": {
+      "source": "nutlope/hallmark",
+      "sourceType": "github",
+      "skillPath": "skills/hallmark",
+      "commit": "13ac0ec7e148655948100b6396439e481361d690",
+      "version": "1.1.0",
+      "license": "MIT",
+      "vendoredAt": "2026-09-28",
+      "computedHash": "0ff63f47a470dfcdab430d66e866afa20691ddbe2230f50af06251f727bad563"
+    }
+  }
+}

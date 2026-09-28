@@ -1,0 +1,30 @@
+---
+import type { HTMLAttributes } from "astro/types"
+
+type Props = HTMLAttributes<"a"> & {
+  href: string
+  variant?: "primary" | "secondary" | "inverse"
+}
+
+const { href, variant = "primary", class: className, ...rest } = Astro.props
+
+const styles = {
+  primary: "bg-brand-600 text-white hover:bg-brand-700",
+  secondary: "border border-line bg-surface text-ink hover:bg-surface-muted",
+  inverse: "bg-surface text-ink hover:bg-brand-50",
+}
+const isExternal = /^https?:\/\//.test(href)
+---
+
+<a
+  href={href}
+  class:list={[
+    "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors",
+    styles[variant],
+    className,
+  ]}
+  {...(isExternal ? { rel: "noopener", target: "_blank" } : {})}
+  {...rest}
+>
+  <slot />
+</a>

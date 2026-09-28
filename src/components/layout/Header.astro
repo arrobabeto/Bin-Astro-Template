@@ -1,0 +1,95 @@
+---
+import { LOCALE_META, type Locale } from "~/config/locales"
+import { site } from "~/config/site"
+import { t } from "~/i18n/ui"
+import { localePath } from "~/lib/i18n"
+import type { Alternate, SiteChrome } from "~/lib/routes"
+
+interface Props {
+  chrome: SiteChrome
+  locale: Locale
+  /** Versiones de la página actual en otros idiomas (vacío con un solo idioma). */
+  alternates?: Alternate[]
+}
+
+const { chrome, locale, alternates = [] } = Astro.props
+const homeHref = localePath(locale, "")
+const otherLanguages = alternates.filter((alt) => alt.locale !== locale)
+---
+
+<header class="border-line bg-surface/90 sticky top-0 z-40 border-b backdrop-blur">
+  <div class="container-page flex h-16 items-center justify-between gap-6">
+    <a href={homeHref} class="text-ink text-lg font-semibold tracking-tight">
+      {site.name}
+    </a>
+
+    <nav aria-label={t(locale, "a11y.mainNav")} class="hidden md:block">
+      <ul class="flex items-center gap-6 text-sm font-medium">
+        {chrome.nav.map((item) => (
+          <li>
+            <a href={item.href} class="text-muted hover:text-ink">
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      {otherLanguages.length > 0 && (
+        <ul
+          class="flex items-center gap-2 text-sm font-medium"
+          aria-label={t(locale, "a11y.languages")}
+        >
+          {otherLanguages.map((alt) => (
+            <li>
+              <a
+                href={alt.path}
+                hreflang={LOCALE_META[alt.locale].hreflang}
+                lang={LOCALE_META[alt.locale].htmlLang}
+                class="text-muted hover:text-ink uppercase"
+              >
+                <span class="sr-only">{LOCALE_META[alt.locale].label}</span>
+                <span aria-hidden="true">{alt.locale}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+      {chrome.headerCta && (
+        <a
+          href={chrome.headerCta.href}
+          class="bg-brand-600 hover:bg-brand-700 hidden rounded-full px-4 py-2 text-sm font-semibold text-white sm:inline-block"
+        >
+          {chrome.headerCta.label}
+        </a>
+      )}
+
+      <details class="relative md:hidden">
+        <summary
+          class="border-line text-ink cursor-pointer list-none rounded-lg border px-3 py-2 text-sm"
+          aria-label={t(locale, "a11y.openMenu")}
+        >
+          ☰
+        </summary>
+        <nav
+          aria-label={t(locale, "a11y.mainNav")}
+          class="border-line bg-surface absolute right-0 mt-2 w-56 rounded-xl border p-3 shadow-lg"
+        >
+          <ul class="flex flex-col gap-1 text-sm">
+            {chrome.nav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-ink hover:bg-surface-muted block rounded-lg px-3 py-2"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>

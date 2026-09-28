@@ -1,0 +1,80 @@
+---
+import { Image } from "astro:assets"
+
+import ButtonLink from "~/components/ui/ButtonLink.astro"
+import Heading from "~/components/ui/Heading.astro"
+import { bf } from "~/lib/bf"
+
+import type { SectionProps } from "./registry"
+
+type Props = SectionProps<"hero">
+
+const { id, area, isFirst, eyebrow, heading, body, image, cta, secondaryCta } =
+  Astro.props
+---
+
+<section
+  id={id}
+  class="bg-surface-muted"
+  {...bf(area, id, "shell", "container")}
+>
+  <div class="container-page grid items-center gap-12 py-16 md:py-24 lg:grid-cols-2">
+    <div>
+      {eyebrow && (
+        <p
+          class="text-brand-700 text-sm font-semibold tracking-wide uppercase"
+          {...bf(area, id, "eyebrow", "copy")}
+        >
+          {eyebrow}
+        </p>
+      )}
+      <Heading
+        isFirst={isFirst}
+        class="text-ink mt-3 text-4xl font-bold tracking-tight text-balance sm:text-5xl"
+        {...bf(area, id, "heading", "style_target")}
+      >
+        {heading}
+      </Heading>
+      {body && (
+        <p
+          class="text-muted mt-6 max-w-xl text-lg leading-8"
+          {...bf(area, id, "body", "copy")}
+        >
+          {body}
+        </p>
+      )}
+      {(cta || secondaryCta) && (
+        <div class="mt-8 flex flex-wrap gap-3">
+          {cta && (
+            <ButtonLink
+              href={cta.href}
+              {...bf(area, id, "cta", "chrome_denied")}
+            >
+              {cta.label}
+            </ButtonLink>
+          )}
+          {secondaryCta && (
+            <ButtonLink
+              href={secondaryCta.href}
+              variant="secondary"
+              {...bf(area, id, "secondaryCta", "chrome_denied")}
+            >
+              {secondaryCta.label}
+            </ButtonLink>
+          )}
+        </div>
+      )}
+    </div>
+    {image && (
+      <Image
+        src={image.src}
+        alt={image.alt}
+        widths={[480, 768, 1024, 1280]}
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        priority={isFirst}
+        class="rounded-card aspect-[4/3] w-full object-cover shadow-xl"
+        {...bf(area, id, "image", "image", { presentation: "img" })}
+      />
+    )}
+  </div>
+</section>

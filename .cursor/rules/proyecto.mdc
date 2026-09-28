@@ -1,0 +1,15 @@
+---
+description: Reglas generales de Bin Astro Template
+alwaysApply: true
+---
+
+Lee y sigue [AGENTS.md](mdc:AGENTS.md): es la fuente única de reglas del proyecto.
+
+Lo esencial:
+
+- Responde en español.
+- El contenido editorial vive en `src/content/` (YAML/Markdown), nunca en componentes.
+- No inventes datos (cifras, clientes, testimonios).
+- Revisa si hay una skill para la tarea en `skills/` ([inventario](mdc:skills/INVENTARIO.md)).
+- La documentación y el inventario de skills se actualizan en el mismo cambio que el código.
+- Termina con `pnpm verify` en verde.

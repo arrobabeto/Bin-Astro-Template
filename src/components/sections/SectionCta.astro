@@ -1,0 +1,41 @@
+---
+import ButtonLink from "~/components/ui/ButtonLink.astro"
+import Heading from "~/components/ui/Heading.astro"
+import { bf } from "~/lib/bf"
+
+import type { SectionProps } from "./registry"
+
+type Props = SectionProps<"cta">
+
+const { id, area, isFirst, heading, body, cta } = Astro.props
+---
+
+<section id={id} class="py-16 md:py-24" {...bf(area, id, "shell", "container")}>
+  <div class="container-page">
+    <div class="bg-surface-inverse text-ink-inverse rounded-card px-6 py-14 text-center sm:px-16">
+      <Heading
+        isFirst={isFirst}
+        class="text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+        {...bf(area, id, "heading", "style_target")}
+      >
+        {heading}
+      </Heading>
+      {body && (
+        <p
+          class="mx-auto mt-4 max-w-2xl text-lg opacity-80"
+          {...bf(area, id, "body", "copy")}
+        >
+          {body}
+        </p>
+      )}
+      <ButtonLink
+        href={cta.href}
+        variant="inverse"
+        class="mt-8"
+        {...bf(area, id, "cta", "chrome_denied")}
+      >
+        {cta.label}
+      </ButtonLink>
+    </div>
+  </div>
+</section>

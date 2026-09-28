@@ -1,0 +1,19 @@
+# Configuración de pnpm 11 (va aquí, no en el campo "pnpm" de package.json).
+# Ver docs/guias/actualizar-dependencias.md
+
+# pnpm 10+ bloquea los scripts de instalación que no estén permitidos.
+allowBuilds:
+  esbuild: true
+  sharp: true
+
+# Falla la instalación si hay peer dependencies incompatibles.
+strictPeerDependencies: true
+
+peerDependencyRules:
+  allowedVersions:
+    # jsx-a11y todavía declara eslint <=9; funciona con ESLint 10.
+    eslint-plugin-jsx-a11y>eslint: "10"
+
+# Excepciones a la política de "no instalar versiones recién publicadas".
+# Agrega aquí una versión exacta solo cuando la necesites y documenta el motivo.
+minimumReleaseAgeExclude: []

@@ -1,0 +1,24 @@
+# build
+dist/
+.vercel/
+.astro/
+
+# dependencias
+node_modules/
+
+# entorno local (nunca se sube)
+.env
+.env.*
+!.env.example
+
+# reportes de pruebas
+playwright-report/
+test-results/
+coverage/
+
+# reportes locales de SEO (los que sí se quieren conservar van en docs/seo/)
+.seo/
+
+# sistema
+.DS_Store
+*.log

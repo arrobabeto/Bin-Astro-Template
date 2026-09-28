@@ -1,0 +1,41 @@
+# Textos globales del sitio en español: navegación, footer, contacto y la
+# imagen por defecto para redes sociales. Guía: docs/guias/contenido.md
+tagline: Sitios web rápidos, claros y listos para crecer
+description: >-
+  Template profesional para sitios web en Astro: contenido en Git, SEO técnico
+  completo, formularios opcionales y listo para integrarse con Binflow.
+ogImage: ../../assets/brand/og-default.jpg
+ogImageAlt: Logotipo y nombre del sitio sobre un fondo azul oscuro
+
+nav:
+  - label: Servicios
+    href: /#servicios
+  - label: Nosotros
+    href: /#nosotros
+  - label: Preguntas
+    href: /#preguntas
+  - label: Contacto
+    href: /#contacto
+
+headerCta:
+  label: Contáctanos
+  href: /#contacto
+
+footer:
+  tagline: Construimos sitios web que cargan rápido, se encuentran en Google y se editan sin miedo.
+  links:
+    - label: Aviso de privacidad
+      href: /privacidad
+    - label: Términos y condiciones
+      href: /terminos
+  copyright: Todos los derechos reservados.
+
+contact:
+  email: hola@tu-dominio.mx
+  phone: "+52 55 0000 0000"
+  address: Ciudad de México, México
+
+social: []
+
+privacyHref: /privacidad
+thankYouHref: /gracias

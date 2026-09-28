@@ -1,0 +1,10 @@
+dist/
+.vercel/
+.astro/
+node_modules/
+pnpm-lock.yaml
+playwright-report/
+test-results/
+.seo/
+skills/hallmark/
+public/sitemap.xsl

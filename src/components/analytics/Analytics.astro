@@ -1,0 +1,41 @@
+---
+/**
+ * Google Tag Manager o GA4 directo (solo si hay IDs en el entorno).
+ * No hay banner de cookies: la responsabilidad legal de informar el uso de
+ * analytics es de quien opera el sitio. Ver docs/guias/analytics.md
+ */
+import { ga4Id, gtmId } from "~/lib/analytics"
+
+// Los IDs ya vienen validados con regex en src/lib/analytics.ts.
+const gtmSnippet = gtmId
+  ? [
+      "window.dataLayer=window.dataLayer||[];",
+      'window.dataLayer.push({"gtm.start":Date.now(),event:"gtm.js"});',
+      'var s=document.createElement("script");s.async=true;',
+      `s.src="https://www.googletagmanager.com/gtm.js?id=${gtmId}";`,
+      "document.head.appendChild(s);",
+    ].join("")
+  : ""
+
+// gtag.js solo reconoce objetos `arguments`, no arrays.
+const ga4Snippet = ga4Id
+  ? [
+      "window.dataLayer=window.dataLayer||[];",
+      "function gtag(){dataLayer.push(arguments)}",
+      'gtag("js",new Date());',
+      `gtag("config","${ga4Id}");`,
+    ].join("")
+  : ""
+---
+
+{gtmSnippet && <script is:inline set:html={gtmSnippet} />}
+{ga4Snippet && (
+  <>
+    <script
+      is:inline
+      async
+      src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}
+    />
+    <script is:inline set:html={ga4Snippet} />
+  </>
+)}

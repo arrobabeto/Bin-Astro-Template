@@ -1,0 +1,43 @@
+---
+import Heading from "~/components/ui/Heading.astro"
+import { bf } from "~/lib/bf"
+
+import type { SectionProps } from "./registry"
+
+type Props = SectionProps<"faq">
+
+const { id, area, isFirst, heading, intro, items } = Astro.props
+---
+
+<section id={id} class="py-16 md:py-24" {...bf(area, id, "shell", "container")}>
+  <div class="container-page max-w-3xl">
+    <Heading
+      isFirst={isFirst}
+      class="text-ink text-3xl font-bold tracking-tight sm:text-4xl"
+      {...bf(area, id, "heading", "style_target")}
+    >
+      {heading}
+    </Heading>
+    {intro && (
+      <p class="text-muted mt-4 text-lg" {...bf(area, id, "intro", "copy")}>
+        {intro}
+      </p>
+    )}
+    <div class="divide-line border-line mt-10 divide-y border-y">
+      {items.map((item) => (
+        <details class="group py-5">
+          <summary class="text-ink flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-medium">
+            <h3>{item.question}</h3>
+            <span
+              aria-hidden="true"
+              class="text-muted transition-transform group-open:rotate-45"
+            >
+              +
+            </span>
+          </summary>
+          <p class="text-muted mt-3 leading-7">{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,161 @@
+---
+import FormEnhancer from "~/components/forms/FormEnhancer.astro"
+import Heading from "~/components/ui/Heading.astro"
+import { t } from "~/i18n/ui"
+import { bf } from "~/lib/bf"
+import { formsProvider, web3formsAccessKey } from "~/lib/forms"
+import { CONTACT_ENDPOINT, WEB3FORMS_ENDPOINT } from "~/lib/forms-config"
+import { getSiteChrome } from "~/lib/routes"
+import { absoluteUrl } from "~/lib/seo"
+
+import type { SectionProps } from "./registry"
+
+type Props = SectionProps<"contact">
+
+const { id, area, isFirst, heading, body, locale } = Astro.props
+const chrome = await getSiteChrome(locale)
+const origin = Astro.site ?? new URL("http://localhost:4321")
+
+const hasForm = formsProvider !== "none"
+const action =
+  formsProvider === "web3forms" ? WEB3FORMS_ENDPOINT : CONTACT_ENDPOINT
+// Sin JavaScript el proveedor redirige a la página de agradecimiento.
+const redirectTo =
+  formsProvider === "web3forms"
+    ? absoluteUrl(chrome.thankYouHref, origin)
+    : chrome.thankYouHref
+
+const inputClass =
+  "border-line bg-surface text-ink mt-2 block w-full rounded-lg border px-4 py-3 focus:border-brand-600"
+---
+
+<section
+  id={id}
+  class="bg-surface-muted py-16 md:py-24"
+  {...bf(area, id, "shell", "container")}
+>
+  <div class="container-page grid gap-12 lg:grid-cols-2">
+    <div>
+      <Heading
+        isFirst={isFirst}
+        class="text-ink text-3xl font-bold tracking-tight sm:text-4xl"
+        {...bf(area, id, "heading", "style_target")}
+      >
+        {heading}
+      </Heading>
+      {body && (
+        <p class="text-muted mt-4 text-lg" {...bf(area, id, "body", "copy")}>
+          {body}
+        </p>
+      )}
+      <p class="text-muted mt-6">
+        {`${t(locale, "form.fallback")} `}
+        <a
+          href={`mailto:${chrome.contact.email}`}
+          class="text-brand-700 font-semibold underline underline-offset-2"
+        >
+          {chrome.contact.email}
+        </a>
+      </p>
+    </div>
+
+    {hasForm && (
+      <form
+        action={action}
+        method="post"
+        class="border-line bg-surface rounded-card space-y-5 border p-6 sm:p-8"
+        data-enhanced-form
+        data-msg-submitting={t(locale, "form.submitting")}
+        data-msg-success={t(locale, "form.success")}
+        data-msg-error={t(locale, "form.error")}
+      >
+        {formsProvider === "web3forms" && (
+          <>
+            <input type="hidden" name="access_key" value={web3formsAccessKey} />
+            <input
+              type="hidden"
+              name="subject"
+              value={t(locale, "form.subject")}
+            />
+            <input type="hidden" name="from_name" value={chrome.tagline} />
+          </>
+        )}
+        <input type="hidden" name="redirect" value={redirectTo} />
+        <input
+          type="checkbox"
+          name="botcheck"
+          class="hidden"
+          tabindex="-1"
+          autocomplete="off"
+          aria-hidden="true"
+        />
+
+        <label class="text-ink block text-sm font-medium">
+          {t(locale, "form.name")}
+          <input
+            name="name"
+            type="text"
+            required
+            maxlength="120"
+            autocomplete="name"
+            class={inputClass}
+          />
+        </label>
+        <label class="text-ink block text-sm font-medium">
+          {t(locale, "form.email")}
+          <input
+            name="email"
+            type="email"
+            required
+            maxlength="254"
+            autocomplete="email"
+            class={inputClass}
+          />
+        </label>
+        <label class="text-ink block text-sm font-medium">
+          {t(locale, "form.phone")}
+          <input
+            name="phone"
+            type="tel"
+            maxlength="40"
+            autocomplete="tel"
+            class={inputClass}
+          />
+        </label>
+        <label class="text-ink block text-sm font-medium">
+          {t(locale, "form.message")}
+          <textarea
+            name="message"
+            required
+            rows="5"
+            maxlength="5000"
+            class={inputClass}
+          />
+        </label>
+
+        <p class="text-muted text-xs">
+          {t(locale, "form.privacyNotice")}{" "}
+          <a href={chrome.privacyHref} class="underline underline-offset-2">
+            {t(locale, "form.privacyLink")}
+          </a>
+          .
+        </p>
+
+        <button
+          type="submit"
+          class="bg-brand-600 hover:bg-brand-700 w-full rounded-full px-6 py-3 text-sm font-semibold text-white disabled:opacity-60"
+        >
+          {t(locale, "form.submit")}
+        </button>
+        <p
+          data-form-status
+          role="status"
+          aria-live="polite"
+          class="data-[state=error]:text-danger data-[state=success]:text-success text-sm"
+        />
+      </form>
+    )}
+  </div>
+</section>
+
+{hasForm && <FormEnhancer />}

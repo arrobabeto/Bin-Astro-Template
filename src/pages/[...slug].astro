@@ -1,0 +1,109 @@
+---
+/**
+ * Ruta única del sitio: genera una página estática por cada archivo de
+ * src/content/pages y src/content/legal (ver src/lib/routes.ts).
+ */
+import { render } from "astro:content"
+
+import AnySection from "~/components/sections/AnySection.astro"
+import { LOCALE_META } from "~/config/locales"
+import { t } from "~/i18n/ui"
+import BaseLayout from "~/layouts/BaseLayout.astro"
+import { bf, bfArea } from "~/lib/bf"
+import { localePath } from "~/lib/i18n"
+import { faqJsonLd, type Crumb } from "~/lib/jsonld"
+import { alternatesFor, getRoutes, type SiteRoute } from "~/lib/routes"
+import { absoluteUrl } from "~/lib/seo"
+
+export async function getStaticPaths() {
+  const routes = await getRoutes()
+  return routes.map((route) => ({
+    params: { slug: route.path === "/" ? undefined : route.path.slice(1) },
+    props: { route, alternates: alternatesFor(route, routes) },
+  }))
+}
+
+interface Props {
+  route: SiteRoute
+  alternates: ReturnType<typeof alternatesFor>
+}
+
+const { route, alternates } = Astro.props
+const { locale } = route
+const origin = Astro.site ?? new URL("http://localhost:4321")
+const area = bfArea(route.slug)
+
+const breadcrumbs: Crumb[] =
+  route.slug === ""
+    ? []
+    : [
+        {
+          name: t(locale, "nav.home"),
+          url: absoluteUrl(localePath(locale, ""), origin),
+        },
+        { name: route.title, url: absoluteUrl(route.path, origin) },
+      ]
+
+const sections = route.kind === "page" ? route.entry.data.sections : []
+const faqItems = sections.flatMap((section) =>
+  section.type === "faq" ? section.items : [],
+)
+const extraJsonLd = faqItems.length > 0 ? [faqJsonLd(faqItems)] : []
+
+const legal = route.kind === "legal" ? await render(route.entry) : undefined
+// Las fechas del contenido (AAAA-MM-DD) se leen como medianoche UTC.
+const dateFormatter = new Intl.DateTimeFormat(LOCALE_META[locale].htmlLang, {
+  dateStyle: "long",
+  timeZone: "UTC",
+})
+---
+
+<BaseLayout
+  title={route.title}
+  seoTitle={route.kind === "page" ? route.entry.data.seo.title : undefined}
+  description={route.description}
+  locale={locale}
+  path={route.path}
+  noindex={route.noindex}
+  canonical={route.canonical}
+  alternates={alternates}
+  ogImage={route.kind === "page" ? route.entry.data.ogImage : undefined}
+  updatedAt={route.updatedAt}
+  breadcrumbs={breadcrumbs}
+  extraJsonLd={extraJsonLd}
+>
+  {sections.map((section, index) => (
+    <AnySection
+      section={section}
+      area={area}
+      locale={locale}
+      isFirst={index === 0}
+    />
+  ))}
+
+  {legal && route.kind === "legal" && (
+    <article
+      class="container-page py-16 md:py-20"
+      {...bf(area, "document", "shell", "container")}
+    >
+      <h1
+        class="text-ink text-4xl font-bold tracking-tight"
+        {...bf(area, "document", "title", "style_target")}
+      >
+        {route.title}
+      </h1>
+      <p class="text-muted mt-3 text-sm">
+        {t(locale, "legal.updatedAt")}:{" "}
+        <time datetime={route.entry.data.updatedAt.toISOString()}>
+          {dateFormatter.format(route.entry.data.updatedAt)}
+        </time>
+      </p>
+      <div
+        class="prose-content mt-8"
+        {...bf(area, "document", "body", "container")}
+      >
+        <legal.Content />
+      </div>
+    </article>
+  )}
+</BaseLayout>

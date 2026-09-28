@@ -1,0 +1,13 @@
+---
+description: Al crear o modificar componentes de sección
+globs: src/components/sections/**,src/lib/bsi-fields.ts
+alwaysApply: false
+---
+
+Sigue la skill [nueva-seccion](mdc:skills/nueva-seccion/SKILL.md).
+
+- Cada tipo necesita: `Section<Tipo>.astro`, `Section<Tipo>.schema.ts`, entrada en `registry.ts`,
+  en `AnySection.astro`, en `src/lib/bsi-fields.ts` y en `src/lib/llms.ts`.
+- Marca cada campo de `bsi-fields.ts` con `bf(area, id, "<campo>", "<kind>")`.
+- Solo tokens de `src/styles/global.css`; sin textos fijos; sin JS de cliente.
+- Verifica con `pnpm check:sections`.

@@ -1,0 +1,83 @@
+---
+import FormEnhancer from "~/components/forms/FormEnhancer.astro"
+import Heading from "~/components/ui/Heading.astro"
+import { t } from "~/i18n/ui"
+import { bf } from "~/lib/bf"
+import { newsletterEnabled } from "~/lib/forms"
+import { NEWSLETTER_ENDPOINT } from "~/lib/forms-config"
+import { getSiteChrome } from "~/lib/routes"
+
+import type { SectionProps } from "./registry"
+
+type Props = SectionProps<"newsletter">
+
+const { id, area, isFirst, heading, body, locale } = Astro.props
+const chrome = await getSiteChrome(locale)
+---
+
+{newsletterEnabled && (
+  <section
+    id={id}
+    class="py-16 md:py-20"
+    {...bf(area, id, "shell", "container")}
+  >
+    <div class="container-page max-w-2xl text-center">
+      <Heading
+        isFirst={isFirst}
+        class="text-ink text-3xl font-bold tracking-tight"
+        {...bf(area, id, "heading", "style_target")}
+      >
+        {heading}
+      </Heading>
+      {body && (
+        <p class="text-muted mt-3 text-lg" {...bf(area, id, "body", "copy")}>
+          {body}
+        </p>
+      )}
+      <form
+        action={NEWSLETTER_ENDPOINT}
+        method="post"
+        class="mt-8 flex flex-col gap-3 sm:flex-row"
+        data-enhanced-form
+        data-msg-submitting={t(locale, "form.submitting")}
+        data-msg-success={t(locale, "newsletter.success")}
+        data-msg-error={t(locale, "newsletter.error")}
+      >
+        <input type="hidden" name="redirect" value={chrome.thankYouHref} />
+        <input
+          type="checkbox"
+          name="botcheck"
+          class="hidden"
+          tabindex="-1"
+          autocomplete="off"
+          aria-hidden="true"
+        />
+        <label class="sr-only" for={`${id}-email`}>
+          {t(locale, "newsletter.email")}
+        </label>
+        <input
+          id={`${id}-email`}
+          name="email"
+          type="email"
+          required
+          autocomplete="email"
+          placeholder={t(locale, "newsletter.email")}
+          class="border-line bg-surface text-ink flex-1 rounded-full border px-5 py-3"
+        />
+        <button
+          type="submit"
+          class="bg-brand-600 hover:bg-brand-700 rounded-full px-6 py-3 text-sm font-semibold text-white"
+        >
+          {t(locale, "newsletter.submit")}
+        </button>
+        <p
+          data-form-status
+          role="status"
+          aria-live="polite"
+          class="text-sm sm:basis-full"
+        />
+      </form>
+    </div>
+  </section>
+)}
+{newsletterEnabled && <FormEnhancer />}

@@ -1,0 +1,78 @@
+---
+import { type Locale } from "~/config/locales"
+import { site } from "~/config/site"
+import { t } from "~/i18n/ui"
+import { bf } from "~/lib/bf"
+import type { SiteChrome } from "~/lib/routes"
+
+interface Props {
+  chrome: SiteChrome
+  locale: Locale
+}
+
+const { chrome, locale } = Astro.props
+const year = new Date().getFullYear()
+---
+
+<footer class="border-line bg-surface-muted border-t">
+  <div class="container-page grid gap-10 py-12 md:grid-cols-3">
+    <div class="md:col-span-2">
+      <p class="text-ink text-lg font-semibold">{site.name}</p>
+      <p
+        class="text-muted mt-2 max-w-md text-sm"
+        {...bf("chrome", "footer", "tagline", "copy")}
+      >
+        {chrome.footer.tagline}
+      </p>
+      <p class="text-muted mt-4 text-sm">
+        <a
+          href={`mailto:${chrome.contact.email}`}
+          class="hover:text-ink underline underline-offset-2"
+        >
+          {chrome.contact.email}
+        </a>
+        {chrome.contact.phone && <span class="mx-2">·</span>}
+        {chrome.contact.phone && (
+          <a
+            href={`tel:${chrome.contact.phone.replace(/\s+/g, "")}`}
+            class="hover:text-ink"
+          >
+            {chrome.contact.phone}
+          </a>
+        )}
+      </p>
+      {chrome.contact.address && (
+        <p class="text-muted mt-1 text-sm">{chrome.contact.address}</p>
+      )}
+    </div>
+
+    <nav aria-label={t(locale, "a11y.footerNav")}>
+      <ul class="flex flex-col gap-2 text-sm">
+        {chrome.footer.links.map((item) => (
+          <li>
+            <a href={item.href} class="text-muted hover:text-ink">
+              {item.label}
+            </a>
+          </li>
+        ))}
+        {chrome.social.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="text-muted hover:text-ink"
+              rel="noopener me"
+              target="_blank"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+  <div class="border-line border-t">
+    <p class="container-page text-muted py-5 text-xs">
+      {`© ${year} ${site.name}. ${chrome.footer.copyright}`}
+    </p>
+  </div>
+</footer>

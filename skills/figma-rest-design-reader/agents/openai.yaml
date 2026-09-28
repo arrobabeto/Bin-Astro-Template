@@ -1,0 +1,6 @@
+display_name: "Lector de Figma (REST)"
+short_description: "Inspecciona archivos de Figma con la API REST"
+brand_color: "#A259FF"
+default_prompt: "Inspecciona el archivo de Figma configurado y lista las páginas y frames relevantes."
+policy:
+  allow_implicit_invocation: true

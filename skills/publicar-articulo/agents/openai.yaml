@@ -1,0 +1,3 @@
+display_name: "Publicar artículo"
+short_description: "Publica artículos de blog con SEO, portada y PR"
+default_prompt: "Usa $publicar-articulo para publicar este artículo con su portada y abrir el PR."

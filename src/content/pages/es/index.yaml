@@ -1,0 +1,92 @@
+# Página de inicio (/). Cada elemento de `sections` es un bloque de la página,
+# en orden. El `id` de cada sección es estable: no lo cambies sin actualizar
+# binflow/surface-inventory.yaml (pnpm bsi:sync).
+# Tipos disponibles y sus campos: docs/guias/secciones.md
+title: Sitios web listos para crecer
+description: >-
+  Diseñamos y construimos sitios web rápidos, optimizados para Google y
+  fáciles de mantener. Conoce nuestros servicios y escríbenos.
+updatedAt: 2026-09-28
+
+sections:
+  - type: hero
+    id: hero
+    eyebrow: Tu sitio, sin complicaciones
+    heading: Sitios web profesionales listos para crecer
+    body: >-
+      Un sitio rápido, bien posicionado en Google y fácil de actualizar.
+      Nosotros nos encargamos de la parte técnica para que tú te enfoques en
+      tu negocio.
+    image:
+      src: ../../../assets/images/hero.jpg
+      alt: Ilustración abstracta de una página web sobre un fondo azul
+    cta:
+      label: Agenda una llamada
+      href: "#contacto"
+    secondaryCta:
+      label: Ver servicios
+      href: "#servicios"
+
+  - type: features
+    id: servicios
+    eyebrow: Servicios
+    heading: Todo lo que tu sitio necesita
+    body: Cada proyecto incluye las bases técnicas que Google y tus clientes esperan.
+    items:
+      - title: Diseño a la medida
+        body: Una identidad visual coherente con tu marca, pensada primero para celular.
+      - title: SEO técnico incluido
+        body: Sitemap, datos estructurados, metadatos y velocidad optimizados desde el día uno.
+      - title: Contenido fácil de editar
+        body: Actualiza textos e imágenes con ayuda de un asistente de IA, sin tocar código.
+      - title: Formularios que funcionan
+        body: Recibe mensajes en tu correo y suma contactos a tu newsletter.
+      - title: Medición opcional
+        body: Conecta Google Analytics, Tag Manager y Search Console cuando lo necesites.
+      - title: Listo para automatizar
+        body: Preparado para integrarse con Binflow y gestionar cambios desde Telegram.
+
+  - type: split
+    id: nosotros
+    eyebrow: Nosotros
+    heading: Un equipo que cuida los detalles
+    body: >-
+      Trabajamos con procesos claros y herramientas probadas. Cada cambio pasa
+      por revisiones automáticas de calidad, accesibilidad y SEO antes de
+      publicarse.
+
+
+      El resultado es un sitio que carga en segundos, se ve bien en cualquier
+      pantalla y crece contigo.
+    image:
+      src: ../../../assets/images/equipo.jpg
+      alt: Ilustración abstracta de tres círculos que representan a un equipo
+    imagePosition: left
+    cta:
+      label: Hablemos de tu proyecto
+      href: "#contacto"
+
+  - type: faq
+    id: preguntas
+    heading: Preguntas frecuentes
+    intro: Respuestas rápidas a lo que más nos preguntan.
+    items:
+      - question: ¿Cuánto tarda en estar listo mi sitio?
+        answer: Un sitio de una a cinco páginas suele estar listo en dos a cuatro semanas, según el contenido disponible.
+      - question: ¿Puedo actualizar el contenido yo mismo?
+        answer: Sí. El contenido vive en archivos simples que puedes editar pidiéndoselo a un asistente de IA o con nuestra ayuda.
+      - question: ¿Mi sitio aparecerá en Google?
+        answer: El sitio incluye todas las bases técnicas de SEO. El posicionamiento depende también de tu contenido y de tu competencia; te ayudamos a medirlo.
+
+  - type: cta
+    id: llamada-a-la-accion
+    heading: ¿Listo para lanzar tu nuevo sitio?
+    body: Cuéntanos qué necesitas y te enviamos una propuesta sin compromiso.
+    cta:
+      label: Escríbenos
+      href: "#contacto"
+
+  - type: contact
+    id: contacto
+    heading: Contáctanos
+    body: Déjanos tus datos y te respondemos en menos de un día hábil.

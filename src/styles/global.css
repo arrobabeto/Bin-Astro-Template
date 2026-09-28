@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/*
+ * Tokens de diseño. Es el ÚNICO lugar con colores y tipografía: los
+ * componentes usan clases como `bg-surface`, `text-ink` o `bg-brand-600`.
+ * Para adaptar la marca de un cliente, cambia solo este bloque.
+ * Ver docs/guias/diseno-y-marca.md
+ */
+@theme {
+  --font-sans:
+    "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-200: #c7d2fe;
+  --color-brand-300: #a5b4fc;
+  --color-brand-400: #818cf8;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-brand-800: #3730a3;
+  --color-brand-900: #312e81;
+
+  --color-surface: #ffffff;
+  --color-surface-muted: #f8fafc;
+  --color-surface-inverse: #0f172a;
+  --color-ink: #0f172a;
+  --color-ink-inverse: #f8fafc;
+  --color-muted: #475569;
+  --color-line: #e2e8f0;
+  --color-success: #15803d;
+  --color-danger: #b91c1c;
+
+  --radius-card: 1rem;
+}
+
+@layer base {
+  html {
+    @apply bg-surface text-ink antialiased;
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  :focus-visible {
+    @apply outline-brand-600 outline-2 outline-offset-2;
+  }
+
+  [id] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+@utility container-page {
+  @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+}
+
+/* Tipografía para Markdown (páginas legales y secciones `prose`). */
+@utility prose-content {
+  @apply text-muted max-w-3xl text-base leading-7;
+
+  & h2 {
+    @apply text-ink mt-10 mb-3 text-2xl font-semibold tracking-tight;
+  }
+  & h3 {
+    @apply text-ink mt-8 mb-2 text-xl font-semibold;
+  }
+  & p,
+  & ul,
+  & ol {
+    @apply my-4;
+  }
+  & ul {
+    @apply list-disc pl-6;
+  }
+  & ol {
+    @apply list-decimal pl-6;
+  }
+  & a {
+    @apply text-brand-700 underline underline-offset-2;
+  }
+  & strong {
+    @apply text-ink font-semibold;
+  }
+}

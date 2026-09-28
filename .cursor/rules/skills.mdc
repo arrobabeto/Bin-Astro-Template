@@ -1,0 +1,12 @@
+---
+description: Al crear o modificar skills
+globs: skills/**
+alwaysApply: false
+---
+
+- Parte de `skills/_plantilla/` y sigue [docs/guias/skills.md](mdc:docs/guias/skills.md).
+- `name` del frontmatter = nombre de la carpeta; `description` dice qué hace y cuándo usarla.
+- **Obligatorio:** actualiza [skills/INVENTARIO.md](mdc:skills/INVENTARIO.md) (fila + ficha) en el
+  mismo cambio.
+- No edites skills de terceros listadas en `skills-lock.json`.
+- Verifica con `pnpm check:skills`.

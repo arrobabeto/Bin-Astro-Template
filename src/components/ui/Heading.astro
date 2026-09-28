@@ -1,0 +1,16 @@
+---
+/**
+ * Encabezado de sección: <h1> si es la primera sección de la página y <h2>
+ * en las demás. Garantiza un solo h1 por página (check:seo lo verifica).
+ */
+import type { HTMLAttributes } from "astro/types"
+
+type Props = HTMLAttributes<"h2"> & { isFirst: boolean }
+
+const { isFirst, ...rest } = Astro.props
+const Tag = isFirst ? "h1" : "h2"
+---
+
+<Tag {...rest}>
+  <slot />
+</Tag>

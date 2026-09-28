@@ -1,0 +1,12 @@
+---
+description: Al editar contenido del sitio (páginas, textos globales, legales)
+globs: src/content/**
+alwaysApply: false
+---
+
+Sigue la skill [editar-contenido](mdc:skills/editar-contenido/SKILL.md).
+
+- Campos por tipo de sección: [docs/guias/secciones.md](mdc:docs/guias/secciones.md).
+- No cambies el `id` de una sección existente. Si agregas o quitas secciones: `pnpm bsi:sync`.
+- Si renombras un archivo de página, agrega la redirección en `src/config/redirects.ts`.
+- Toda imagen necesita `alt` descriptivo.
