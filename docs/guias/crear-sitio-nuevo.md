@@ -77,6 +77,14 @@ Cuando pase, conecta el repositorio a Vercel y configura el dominio:
 Binflow, sigue [Formularios y email](formularios-y-email.md), [Analytics](analytics.md) y
 [Binflow](binflow.md).
 
+## Licencia del sitio
+
+El template es MIT: el sitio del cliente puede ser privado. Conserva el archivo `LICENSE` del
+template (es la única condición de MIT) y cambia el campo `license` de `package.json` a
+`UNLICENSED` si el repositorio del cliente no se publica. Los nombres Bin Astro Template, Binflow
+y BSI son marcas privadas: no los uses como nombre del sitio ni de un producto derivado (ver la
+sección de licencia del [README](../../README.md#licencia)).
+
 ## Lista final
 
 - [ ] `pnpm verify` pasa sin avisos de placeholders.

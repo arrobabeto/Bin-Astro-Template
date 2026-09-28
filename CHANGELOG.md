@@ -16,6 +16,8 @@ sitios que actualizan desde el template (ver
 
 ### Agregado
 
+- Licencia MIT para el código, con aviso de que los nombres Bin Astro Template, Binflow y
+  BSI son marcas privadas.
 - `pnpm test:integration`: casos de uso reales en una copia temporal del repo.
 - Pruebas de coherencia entre scripts, documentación, CI, variables de entorno y skills.
 - Historias de visitante en las pruebas e2e.

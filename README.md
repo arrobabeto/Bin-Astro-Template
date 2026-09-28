@@ -110,5 +110,14 @@ funciona y cómo contratarlo: [guía de Binflow](docs/guias/binflow.md) y
 
 ## Licencia
 
-Uso privado; todavía no se define una licencia pública (`UNLICENSED`). La skill
-[`hallmark`](skills/hallmark/) es de terceros y conserva su licencia MIT.
+El código se publica con licencia [MIT](LICENSE): puedes usarlo, modificarlo y crear sitios
+comerciales a partir de él, siempre que conserves el aviso de copyright. La skill
+[`hallmark`](skills/hallmark/) es de terceros y conserva su propia licencia MIT.
+
+### Marcas
+
+Los nombres **Bin Astro Template**, **Binflow** y **BSI** (Binflow Surface Inventory) son marcas
+de carácter privado de sus titulares. La licencia MIT cubre el código, no los nombres: no otorga
+permiso para usarlos para nombrar, promocionar o distribuir productos derivados, ni para dar a
+entender que tienen respaldo oficial. Sí puedes mencionarlos para describir con veracidad que tu
+sitio parte de este template o es compatible con Binflow.
