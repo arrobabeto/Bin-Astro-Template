@@ -17,6 +17,7 @@ lenguaje natural (_"haz una auditoría SEO"_): el agente reconoce la skill por s
 | Cambiar textos, imágenes, menú o contacto  | `/editar-contenido`      |
 | Auditar o corregir el SEO                  | `/seo-audit`             |
 | Convertir el template en un sitio nuevo    | `/nuevo-sitio`           |
+| Crear el home (borra la portada demo)      | `/disenar-sitio`         |
 | Crear un tipo de bloque nuevo              | `/nueva-seccion`         |
 | Cambiar una URL sin perder posicionamiento | `/agregar-redireccion`   |
 | Agregar un idioma                          | `/agregar-idioma`        |

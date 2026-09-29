@@ -7,11 +7,27 @@ preparado para integrarse con **Binflow** desde el primer día.
 > **¿Primera vez aquí?** Lee [Empieza aquí](docs/guias/empieza-aqui.md). Explica el proyecto
 > sin tecnicismos y te dice qué guía leer según lo que necesites.
 
+## Un stack, no un sitio de ejemplo
+
+Bin Astro Template (BAT) no trae estructura ni contenido sugerido. Su valor está en la
+infraestructura: el modelo de páginas como secciones validadas, el SEO técnico, BSI, i18n,
+los formularios opcionales, las revisiones automáticas y CI. La estructura y el contenido de
+cada sitio se construyen desde cero con prompts, skills (`disenar-sitio`, `nueva-seccion`,
+`construir-desde-figma`, `editar-contenido`…) y Figma.
+
+Lo que hay en `src/content/`, `src/assets/images/` y los ocho tipos de sección es **material de
+arranque**. Los tipos muestran el patrón de un bloque (schema, componente, registro y campos
+BSI); cada sitio los reutiliza, los cambia o crea los suyos. La portada, la página de gracias,
+los legales y las imágenes existen para que el build y las revisiones tengan algo que validar,
+y `check:placeholders` exige sustituirlos después del bootstrap. Detalle en la
+[ADR 0009](docs/adr/0009-stack-no-contenido.md).
+
 ## Qué incluye
 
-- **Contenido sin CMS.** Cada página es un archivo YAML con una lista de secciones (hero,
-  servicios, preguntas frecuentes, contacto…). Si falta un dato obligatorio, el sitio no se
-  publica y el error dice exactamente qué corregir.
+- **Páginas como secciones validadas, sin CMS.** Cada página es un archivo YAML con una lista
+  de secciones, y cada tipo de sección tiene su schema. Si falta un dato obligatorio, el sitio
+  no se publica y el error dice exactamente qué corregir. Los tipos de sección se crean por
+  sitio con la skill `nueva-seccion`.
 - **SEO de base.** `sitemap.xml`, `robots.txt`, `llms.txt` y `llms-full.txt`, datos
   estructurados (JSON-LD), Open Graph, canonical, `hreflang`, página 404, redirecciones 301
   reales y `noindex` automático en los previews.
@@ -46,6 +62,10 @@ pnpm bootstrap    # pide nombre, dominio y contacto, y deja el proyecto listo
 Paso a paso completo: [Crear un sitio nuevo](docs/guias/crear-sitio-nuevo.md). Con un agente de
 IA basta con pedir `/nuevo-sitio`.
 
+La portada que ves en `pnpm dev` es **relleno**: se borra con `pnpm demo:clear` cuando empiezas
+el diseño. Pide al agente _"crea el home"_ y elige la ruta: desde Figma (página por página
+según el `node-id`) o con Hallmark. Detalle: [Diseñar el sitio](docs/guias/disenar-el-sitio.md).
+
 ## Si no eres técnico
 
 No necesitas tocar código. Abre el proyecto en Cursor, Claude Code o Codex y pide lo que
@@ -56,19 +76,20 @@ revisa el resultado antes de proponerlo. Más detalles:
 
 ## Comandos
 
-| Comando                                       | Qué hace                                                               |
-| --------------------------------------------- | ---------------------------------------------------------------------- |
-| `pnpm dev`                                    | Servidor local con recarga automática                                  |
-| `pnpm build`                                  | Genera el sitio en `.vercel/output/`                                   |
-| `pnpm preview`                                | Sirve el build local imitando a Vercel (puerto 4173)                   |
-| `pnpm bootstrap`                              | Convierte el template en un sitio nuevo                                |
-| `pnpm verify`                                 | Todas las revisiones de calidad, en el mismo orden que CI              |
-| `pnpm bsi:sync`                               | Regenera el inventario de Binflow a partir del contenido               |
-| `pnpm seo:extract`                            | Extrae los datos SEO de cada página a `.seo/extract.json`              |
-| `pnpm brand:assets`                           | Regenera favicons e imagen social a partir del logo                    |
-| `pnpm check:source`                           | Revisiones que no necesitan build (contenido, docs, skills…)           |
-| `pnpm check:dist`                             | Revisiones sobre el build (SEO, BSI, redirecciones, secretos…)         |
-| `pnpm test` / `test:integration` / `test:e2e` | Pruebas unitarias / casos de uso / pruebas en navegador con Playwright |
+| Comando                                       | Qué hace                                                                |
+| --------------------------------------------- | ----------------------------------------------------------------------- |
+| `pnpm dev`                                    | Servidor local con recarga automática                                   |
+| `pnpm build`                                  | Genera el sitio en `.vercel/output/`                                    |
+| `pnpm preview`                                | Sirve el build local imitando a Vercel (puerto 4173)                    |
+| `pnpm bootstrap`                              | Convierte el template en un sitio nuevo                                 |
+| `pnpm demo:clear`                             | Borra la portada demo para empezar el diseño (`--dry-run` para simular) |
+| `pnpm verify`                                 | Todas las revisiones de calidad, en el mismo orden que CI               |
+| `pnpm bsi:sync`                               | Regenera el inventario de Binflow a partir del contenido                |
+| `pnpm seo:extract`                            | Extrae los datos SEO de cada página a `.seo/extract.json`               |
+| `pnpm brand:assets`                           | Regenera favicons e imagen social a partir del logo                     |
+| `pnpm check:source`                           | Revisiones que no necesitan build (contenido, docs, skills…)            |
+| `pnpm check:dist`                             | Revisiones sobre el build (SEO, BSI, redirecciones, secretos…)          |
+| `pnpm test` / `test:integration` / `test:e2e` | Pruebas unitarias / casos de uso / pruebas en navegador con Playwright  |
 
 Todos los comandos `check:*` están descritos en [Empieza aquí](docs/guias/empieza-aqui.md#revisiones-automáticas).
 

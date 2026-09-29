@@ -38,8 +38,9 @@ Presenta una tabla y pide aprobación antes de programar:
 | Frame de Figma | Sección del template | Nueva? | Notas |
 | -------------- | -------------------- | ------ | ----- |
 
-Prefiere secciones existentes con ajustes de contenido. Crear un tipo nuevo solo si el
-bloque no se parece a ninguno.
+Los bloques salen del frame, no de los tipos que ya tiene el proyecto: los de arranque no son
+un catálogo. Reutiliza un tipo existente solo si reproduce el bloque sin forzar el diseño; si
+no, marca "Nueva" y créalo con `nueva-seccion` (o propón modificar el existente).
 
 ## 3. SECCIONES_LISTAS
 

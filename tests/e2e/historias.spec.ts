@@ -7,14 +7,19 @@ const SITE = checkSiteUrl()
 /** Convierte una URL absoluta del sitio en una ruta del servidor local. */
 const localPath = (url: string) => new URL(url).pathname
 
+// Las historias sobre la home no asumen su contenido (la portada demo se
+// borra con `pnpm demo:clear`): si el bloque no existe, se omiten.
 test.describe("historias de visitante", () => {
-  test("quiero contactar: el botón principal me lleva al formulario de contacto", async ({
+  test("el botón principal de la portada me lleva a su sección", async ({
     page,
   }) => {
     await page.goto("/")
-    await page.locator("#hero").getByRole("link").first().click()
-    await expect(page).toHaveURL(/#contacto$/)
-    await expect(page.locator("#contacto")).toBeInViewport()
+    const cta = page.locator('#hero a[href^="#"]').first()
+    test.skip((await cta.count()) === 0, "la portada no tiene hero con ancla")
+    const target = (await cta.getAttribute("href"))!
+    await cta.click()
+    await expect(page).toHaveURL(new RegExp(`${target}$`))
+    await expect(page.locator(target)).toBeInViewport()
   })
 
   test("quiero leer el aviso de privacidad desde cualquier página", async ({
@@ -33,7 +38,8 @@ test.describe("historias de visitante", () => {
     page,
   }) => {
     await page.goto("/")
-    const question = page.locator("#preguntas details").first()
+    const question = page.locator("main section details").first()
+    test.skip((await question.count()) === 0, "la portada no tiene preguntas")
     await expect(question).not.toHaveAttribute("open")
     await question.locator("summary").focus()
     await page.keyboard.press("Enter")

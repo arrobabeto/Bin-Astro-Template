@@ -46,7 +46,7 @@ describe("Historia: como editor agrego una sección y Binflow se entera", () => 
 
   it("renombrar el id de una sección sin sincronizar rompe check:bsi", () => {
     ws.edit("src/content/pages/es/index.yaml", (yaml) =>
-      yaml.replace("id: servicios", "id: lo-que-hacemos"),
+      yaml.replace("id: como-disenar", "id: lo-que-hacemos"),
     )
     expect(ws.run("scripts/check-bsi.mjs").status).not.toBe(0)
   })
@@ -71,7 +71,7 @@ describe("Protecciones del contenido", () => {
   it("check:placeholders bloquea texto de relleno", () => {
     ws.edit("src/content/pages/es/index.yaml", (yaml) =>
       yaml.replace(
-        "heading: Todo lo que tu sitio necesita",
+        "heading: Dos formas de diseñar tu sitio",
         "heading: Lorem ipsum dolor sit amet",
       ),
     )

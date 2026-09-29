@@ -1,6 +1,7 @@
 /**
  * Copia temporal del repositorio para probar los scripts reales sin tocar el
- * proyecto. `node_modules` se enlaza (no se copia) para que sea rápido.
+ * proyecto. Los paquetes de `node_modules` se enlazan (no se copian) para que
+ * sea rápido.
  */
 import { spawnSync } from "node:child_process"
 import fs from "node:fs"
@@ -58,10 +59,17 @@ export function createWorkspace(): Workspace {
     verbatimSymlinks: true,
     filter: (source) => !SKIP.has(path.basename(source)),
   })
-  fs.symlinkSync(
-    path.join(ROOT, "node_modules"),
-    path.join(dir, "node_modules"),
-  )
+  // Se enlaza cada paquete y no la carpeta entera: la caché de contenido de
+  // Astro (node_modules/.astro) debe ser propia de cada copia, porque las
+  // pruebas corren builds en paralelo.
+  fs.mkdirSync(path.join(dir, "node_modules"))
+  for (const entry of fs.readdirSync(path.join(ROOT, "node_modules"))) {
+    if (entry === ".astro") continue
+    fs.symlinkSync(
+      path.join(ROOT, "node_modules", entry),
+      path.join(dir, "node_modules", entry),
+    )
+  }
 
   const file = (relative: string) => path.join(dir, relative)
   return {

@@ -13,6 +13,8 @@ entender por qué el template es como es.
 | [0005](0005-idioma-unico-con-i18n-listo.md)  | Español por defecto con i18n lista para activar       | Aceptada |
 | [0006](0006-skills-en-carpeta-canonica.md)   | Skills en una carpeta canónica para todos los agentes | Aceptada |
 | [0007](0007-medicion-opcional-sin-banner.md) | Medición opcional y sin banner de cookies             | Aceptada |
+| [0008](0008-portada-demo-destruible.md)      | Portada demo destruible con `pnpm demo:clear`         | Aceptada |
+| [0009](0009-stack-no-contenido.md)           | Un stack, no un sitio de ejemplo                      | Aceptada |
 
 ## Cómo escribir una ADR
 

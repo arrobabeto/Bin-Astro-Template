@@ -1,14 +1,22 @@
 # Secciones
 
 Cada página es una lista de secciones. Cada sección tiene un `type` (qué bloque es), un `id`
-estable y sus campos. Esta guía es la referencia de todos los tipos disponibles. La razón de
-este modelo está en la [ADR 0002](../adr/0002-paginas-como-secciones-yaml.md).
+estable y sus campos. La razón de este modelo está en la
+[ADR 0002](../adr/0002-paginas-como-secciones-yaml.md).
+
+Lo que el template aporta es **el modelo**: cómo se define un bloque, cómo se valida y cómo
+queda disponible para Binflow. Los tipos que trae son **bloques de arranque**. Muestran el
+patrón completo y dan al build algo que validar, pero no son un catálogo que haya que respetar.
+Cada sitio los reutiliza si encajan con su diseño, los modifica, los quita o crea los suyos con
+`/nueva-seccion` (ver [ADR 0009](../adr/0009-stack-no-contenido.md)). Esta guía documenta los
+tipos que existen en el proyecto: cuando un sitio agrega, cambia o quita uno, la actualiza en
+el mismo cambio.
 
 ## Campos comunes
 
 | Campo  | Formato                          | Nota                                                            |
 | ------ | -------------------------------- | --------------------------------------------------------------- |
-| `type` | uno de los tipos de abajo        | Obligatorio                                                     |
+| `type` | un tipo registrado en el sitio   | Obligatorio                                                     |
 | `id`   | kebab-case: `nuestros-servicios` | Obligatorio, único en la página, no se cambia una vez publicado |
 | enlace | `{ label, href }`                | `href` empieza con `/`, `#`, `https://`, `mailto:` o `tel:`     |
 | imagen | `{ src, alt }`                   | `src` relativo a `src/assets/`; `alt` obligatorio               |
@@ -18,7 +26,10 @@ Los textos largos aceptan párrafos separados por una línea en blanco (con `>-`
 La primera sección de la página lleva el `<h1>`; las demás usan `<h2>`. Por eso cada página
 tiene exactamente un H1 sin que tengas que pensarlo.
 
-## Tipos disponibles
+## Tipos de arranque
+
+Los ocho tipos que trae el template. Los ejemplos muestran el formato de los campos, no textos
+ni estructuras sugeridas.
 
 ### `hero` — Portada
 
@@ -36,15 +47,15 @@ Bloque principal al inicio de la página.
 ```yaml
 - type: hero
   id: hero
-  eyebrow: Tu sitio, sin complicaciones
-  heading: Sitios web profesionales listos para crecer
-  body: Un sitio rápido, bien posicionado y fácil de actualizar.
+  eyebrow: Texto corto sobre el título
+  heading: Título principal de la página
+  body: Una o dos frases de apoyo.
   image:
-    src: ../../../assets/images/hero.jpg
-    alt: Ilustración de una página web sobre fondo azul
+    src: ../../../assets/images/portada.jpg
+    alt: Descripción de lo que muestra la imagen
   cta:
-    label: Agenda una llamada
-    href: "#contacto"
+    label: Texto del botón
+    href: "#id-de-otra-seccion"
 ```
 
 ### `features` — Lista de beneficios o servicios
@@ -114,17 +125,32 @@ sección no aparece y no deja huecos.
 
 ## Cómo está construida una sección
 
-Cada tipo tiene tres piezas en `src/components/sections/`:
+Este es el patrón que el template aporta y que siguen tanto los tipos de arranque como los que
+cree cada sitio. En `src/components/sections/`:
 
 - `SectionX.schema.ts`: los campos y sus reglas (Zod).
 - `SectionX.astro`: el componente que la dibuja.
-- Una línea en `registry.ts` que une el `type` con su schema.
+- Una línea en `registry.ts` que une el `type` con su schema, y otra en `AnySection.astro` que
+  lo une con su componente.
 
-Cada campo visible lleva un marcador BSI (`bf()`), y `pnpm check:sections` comprueba que las
-tres piezas y los marcadores estén completos y coincidan con `src/lib/bsi-fields.ts`.
+Fuera de esa carpeta, `src/lib/bsi-fields.ts` declara qué campos puede editar Binflow y
+`src/lib/llms.ts` cómo se resume el bloque en `llms-full.txt`. Cada campo visible lleva un
+marcador BSI (`bf()`), y `pnpm check:sections` comprueba que las piezas y los marcadores estén
+completos y coincidan con `src/lib/bsi-fields.ts`.
 
-## Crear un tipo nuevo
+## Crear, cambiar o quitar tipos
 
-Pide `/nueva-seccion` a tu agente (por ejemplo, _"crea una sección de testimonios"_). La skill
-crea las tres piezas, registra los campos BSI, actualiza esta guía y corre las revisiones. Un
-tipo nuevo **debe** documentarse aquí en el mismo cambio.
+- **Crear:** pide `/nueva-seccion` a tu agente (por ejemplo, _"crea una sección de
+  testimonios"_ o _"crea el bloque del frame 12-4 de Figma"_). La skill crea las piezas,
+  registra los campos BSI, actualiza esta guía y corre las revisiones. Es el camino normal
+  cuando el diseño pide un bloque que no existe, aunque se parezca a uno de arranque.
+- **Cambiar:** un tipo de arranque se puede rediseñar o cambiar de campos. Si cambian los
+  campos, actualiza `src/lib/bsi-fields.ts`, esta guía y el contenido que lo usa, y corre
+  `pnpm bsi:sync`.
+- **Quitar:** si ningún contenido lo usa, borra su componente y su schema, y sácalo de
+  `registry.ts`, `AnySection.astro`, `src/lib/bsi-fields.ts`, `src/lib/llms.ts` y esta guía.
+  `pnpm check:sections` y `pnpm typecheck` avisan si queda alguna pieza suelta. Algunas
+  pruebas del template usan tipos de arranque como ejemplo (`tests/unit/section-schemas.test.ts`
+  y los casos de `tests/integration/`): si quitas uno, ajústalas en el mismo cambio.
+
+Cualquier alta, cambio o baja de un tipo **debe** documentarse aquí en el mismo cambio.

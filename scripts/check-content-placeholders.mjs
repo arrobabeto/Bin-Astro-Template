@@ -4,7 +4,8 @@
  *  - Siempre: nada de "lorem ipsum" ni TODO/FIXME en el contenido publicable.
  *  - En sitios creados con `pnpm bootstrap` (existe template.lock.json):
  *    también falla si quedan datos de ejemplo del template (dominio, correo,
- *    teléfono, nombre del template, aviso legal sin revisar) y advierte si un
+ *    teléfono, nombre del template, aviso legal sin revisar, portada demo o
+ *    provisional) y advierte si un
  *    archivo demo sigue sin cambios. Así ningún sitio sale con datos demo.
  */
 import fs from "node:fs"
@@ -28,6 +29,14 @@ const TEMPLATE_MARKERS = [
   {
     label: "aviso legal de plantilla sin revisar",
     regex: /Plantilla de referencia/,
+  },
+  {
+    label: "portada demo del template (corre `pnpm demo:clear`)",
+    regex: /bin-astro-template:demo/,
+  },
+  {
+    label: "portada provisional sin diseñar (skill disenar-sitio)",
+    regex: /bin-astro-template:home-pendiente/,
   },
 ]
 

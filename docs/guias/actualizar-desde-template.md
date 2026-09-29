@@ -49,6 +49,9 @@ Con un agente: _"trae las mejoras del template en scripts y src/lib, sin tocar c
 ## Buenas prácticas
 
 - Actualiza seguido y en cambios pequeños; es más fácil que un salto grande.
-- Nunca traigas `src/content/` ni `src/assets/` del template: son datos de demostración.
+- Nunca traigas `src/content/` ni `src/assets/` del template: son material de arranque, no
+  contenido del sitio.
+- Tampoco sobrescribas los tipos de sección de `src/components/sections/`: cada sitio tiene
+  los suyos. Del template solo se trae infraestructura (`scripts/`, `src/lib/`, SEO, checks).
 - Si un sitio necesita un cambio que sirve a todos, hazlo primero en el template y luego
   tráelo al sitio.
