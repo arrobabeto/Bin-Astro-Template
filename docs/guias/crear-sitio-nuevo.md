@@ -1,7 +1,11 @@
 # Crear un sitio nuevo
 
-Pasos para convertir el template en el sitio de un cliente. Con un agente de IA puedes pedir
+Pasos para crear el sitio de un cliente sobre el template. Con un agente de IA puedes pedir
 `/nuevo-sitio` y seguirá esta misma guía.
+
+El template aporta la infraestructura (secciones validadas, SEO, BSI, idiomas, formularios,
+revisiones y CI). La estructura y el contenido del sitio no se adaptan de lo que trae: se
+construyen desde cero en el paso 4. Ver la [ADR 0009](../adr/0009-stack-no-contenido.md).
 
 ## 1. Crear el repositorio
 
@@ -42,8 +46,9 @@ Qué hace:
 
 Desde ese momento, `pnpm check:placeholders` se vuelve estricto: falla si queda algún dato
 del template (el teléfono `+52 55 0000 0000`, el dominio `tu-dominio.mx`, textos marcados como
-`[EJEMPLO]`) y avisa de los archivos de demostración que siguen sin cambios. Es la lista de
-pendientes antes de publicar.
+`[EJEMPLO]`, la portada demo o la provisional, los legales sin revisar) y avisa de las
+páginas, imágenes y logo que siguen iguales que en el template. Es la lista de material de
+arranque pendiente de sustituir antes de publicar.
 
 `pnpm bootstrap` se niega a correr dos veces. Si necesitas repetirlo, usa `--force`.
 
@@ -52,17 +57,27 @@ pendientes antes de publicar.
 - Reemplaza `public/favicon.svg` por el logo del cliente y corre `pnpm brand:assets`.
 - Cambia colores y tipografía en `src/styles/global.css`.
 
-Detalles: [Diseño y marca](diseno-y-marca.md). Si hay un diseño en Figma, usa la skill
-`/construir-desde-figma`.
+Detalles: [Diseño y marca](diseno-y-marca.md).
 
-## 4. Contenido
+## 4. Estructura y contenido, desde cero
 
-- Reescribe `src/content/pages/es/index.yaml` (la home) con los textos del cliente.
-- Crea las demás páginas como archivos nuevos en `src/content/pages/es/`.
-- Revisa el menú, pie de página y contacto en `src/content/site/es.yaml`.
-- Adapta el aviso de privacidad y los términos en `src/content/legal/es/`. **Deben revisarlos
-  el cliente o su asesor legal**: el template trae un texto genérico.
-- Sustituye las imágenes de `src/assets/images/`.
+Nada de lo que trae el template es una estructura que haya que seguir. Pide al agente
+_"crea el home"_ (skill `/disenar-sitio`) o sigue [Diseñar el sitio](disenar-el-sitio.md):
+
+- `pnpm demo:clear` borra la portada demo, sus imágenes y el menú que apuntaba a ella.
+- El diseño sale de Figma (página por página según el `node-id`) o de Hallmark, no de la
+  portada demo.
+- Los bloques que pida el diseño se crean con `/nueva-seccion`. Los tipos de arranque se
+  reutilizan solo si encajan sin forzar el diseño; también puedes cambiarlos o quitarlos.
+- Cada página nueva es un archivo en `src/content/pages/es/`, con los textos del cliente.
+- El menú, el pie de página y el contacto de `src/content/site/es.yaml` se escriben para el
+  sitio.
+- El aviso de privacidad y los términos de `src/content/legal/es/` son una referencia
+  genérica: se sustituyen por los del cliente. **Deben revisarlos el cliente o su asesor
+  legal**.
+- `gracias.yaml` se conserva como página (los formularios la usan), pero su texto se escribe
+  para el sitio.
+- Las imágenes son las del cliente, en `src/assets/images/`.
 
 Guías: [Contenido](contenido.md), [Secciones](secciones.md) e [Imágenes](imagenes.md).
 

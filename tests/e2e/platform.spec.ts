@@ -30,7 +30,8 @@ test.describe("rendimiento", () => {
 
   test("la imagen principal se carga con prioridad", async ({ page }) => {
     await page.goto("/")
-    const hero = page.locator("#hero img")
+    const hero = page.locator("main section").first().locator("img").first()
+    test.skip((await hero.count()) === 0, "la primera sección no tiene imagen")
     await expect(hero).toHaveAttribute("fetchpriority", "high")
     await expect(hero).toHaveAttribute("loading", "eager")
   })
@@ -62,15 +63,17 @@ test.describe("cabeceras de seguridad", () => {
 test.describe("Binflow (BSI)", () => {
   test("las secciones llevan marcadores data-bf-*", async ({ page }) => {
     await page.goto("/")
+    const first = page.locator("main section[id]").first()
+    const id = (await first.getAttribute("id"))!
+    await expect(first).toHaveAttribute("data-bf-id", `home.${id}.shell`)
+    await expect(first).toHaveAttribute("data-bf-kind", "container")
     await expect(
-      page.locator('[data-bf-id="home.hero.shell"]'),
-    ).toHaveAttribute("data-bf-kind", "container")
-    await expect(
-      page.locator('[data-bf-id="home.hero.heading"]'),
-    ).toHaveAttribute("data-bf-section", "hero")
-    await expect(
-      page.locator('[data-bf-id="home.hero.image"]'),
-    ).toHaveAttribute("data-bf-presentation", "img")
+      page.locator(`[data-bf-id="home.${id}.heading"]`),
+    ).toHaveAttribute("data-bf-section", id)
+    const image = page.locator('[data-bf-presentation="img"]').first()
+    if ((await image.count()) > 0) {
+      await expect(image).toHaveAttribute("data-bf-kind", "image")
+    }
     await expect(
       page.locator('[data-bf-id="chrome.footer.tagline"]'),
     ).toHaveCount(1)

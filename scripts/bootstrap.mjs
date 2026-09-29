@@ -205,7 +205,8 @@ console.log(`
 Listo. Siguientes pasos (docs/guias/crear-sitio-nuevo.md):
   1. Reemplaza el logo en public/favicon.svg y corre \`pnpm brand:assets\`.
   2. Cambia los colores de marca en src/styles/global.css.
-  3. Reescribe el contenido de src/content/ (o pídeselo a tu agente de IA).
+  3. Diseña el sitio: pídele a tu agente "crea el home" (borra la portada demo
+     con \`pnpm demo:clear\` y sigue la ruta Figma o Hallmark).
   4. Revisa los textos legales con un profesional y quita el aviso de plantilla.
   5. En Vercel, agrega PUBLIC_SITE_URL=${siteUrl} en Environment Variables.
   6. Corre \`pnpm verify\`: \`check:placeholders\` te dirá qué datos demo faltan.

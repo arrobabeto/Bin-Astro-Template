@@ -1,92 +1,64 @@
-# Página de inicio (/). Cada elemento de `sections` es un bloque de la página,
-# en orden. El `id` de cada sección es estable: no lo cambies sin actualizar
-# binflow/surface-inventory.yaml (pnpm bsi:sync).
-# Tipos disponibles y sus campos: docs/guias/secciones.md
-title: Sitios web listos para crecer
+# bin-astro-template:demo
+# Portada DE DEMOSTRACIÓN del template: todo este contenido es relleno.
+# No la edites para convertirla en el sitio real: cuando empieces el diseño,
+# pídele a tu agente "crea el home" (skill disenar-sitio) o corre
+# `pnpm demo:clear`, que la borra junto con src/assets/images/demo-*.
+# Guía: docs/guias/disenar-el-sitio.md
+title: Bienvenido a Bin Astro Template
 description: >-
-  Diseñamos y construimos sitios web rápidos, optimizados para Google y
-  fáciles de mantener. Conoce nuestros servicios y escríbenos.
-updatedAt: 2026-09-28
+  Portada de demostración del template. Muestra un par de bloques de ejemplo y
+  explica las dos formas de diseñar el sitio real: desde Figma o con Hallmark.
+updatedAt: 2026-09-29
 
 sections:
   - type: hero
     id: hero
-    eyebrow: Tu sitio, sin complicaciones
-    heading: Sitios web profesionales listos para crecer
+    eyebrow: Contenido de ejemplo
+    heading: Esta página es relleno y se va a borrar
     body: >-
-      Un sitio rápido, bien posicionado en Google y fácil de actualizar.
-      Nosotros nos encargamos de la parte técnica para que tú te enfoques en
-      tu negocio.
+      Es la portada de demostración de Bin Astro Template. Sirve para ver cómo
+      se arma una página con bloques antes de diseñar el sitio real. Cuando le
+      pidas a tu agente de IA "crea el home", este contenido se elimina.
     image:
-      src: ../../../assets/images/hero.jpg
+      src: ../../../assets/images/demo-hero.jpg
       alt: Ilustración abstracta de una página web sobre un fondo azul
     cta:
-      label: Agenda una llamada
-      href: "#contacto"
+      label: Ver las dos formas de diseñar
+      href: "#como-disenar"
     secondaryCta:
-      label: Ver servicios
-      href: "#servicios"
+      label: Qué pedirle al agente
+      href: "#siguiente-paso"
 
   - type: features
-    id: servicios
-    eyebrow: Servicios
-    heading: Todo lo que tu sitio necesita
-    body: Cada proyecto incluye las bases técnicas que Google y tus clientes esperan.
-    items:
-      - title: Diseño a la medida
-        body: Una identidad visual coherente con tu marca, pensada primero para celular.
-      - title: SEO técnico incluido
-        body: Sitemap, datos estructurados, metadatos y velocidad optimizados desde el día uno.
-      - title: Contenido fácil de editar
-        body: Actualiza textos e imágenes con ayuda de un asistente de IA, sin tocar código.
-      - title: Formularios que funcionan
-        body: Recibe mensajes en tu correo y suma contactos a tu newsletter.
-      - title: Medición opcional
-        body: Conecta Google Analytics, Tag Manager y Search Console cuando lo necesites.
-      - title: Listo para automatizar
-        body: Preparado para integrarse con Binflow y gestionar cambios desde Telegram.
-
-  - type: split
-    id: nosotros
-    eyebrow: Nosotros
-    heading: Un equipo que cuida los detalles
+    id: como-disenar
+    eyebrow: Dos caminos
+    heading: Dos formas de diseñar tu sitio
     body: >-
-      Trabajamos con procesos claros y herramientas probadas. Cada cambio pasa
-      por revisiones automáticas de calidad, accesibilidad y SEO antes de
-      publicarse.
-
-
-      El resultado es un sitio que carga en segundos, se ve bien en cualquier
-      pantalla y crece contigo.
-    image:
-      src: ../../../assets/images/equipo.jpg
-      alt: Ilustración abstracta de tres círculos que representan a un equipo
-    imagePosition: left
-    cta:
-      label: Hablemos de tu proyecto
-      href: "#contacto"
-
-  - type: faq
-    id: preguntas
-    heading: Preguntas frecuentes
-    intro: Respuestas rápidas a lo que más nos preguntan.
+      Elige una. En las dos, el contenido termina en archivos YAML de
+      src/content/ y el código pasa las mismas revisiones automáticas.
     items:
-      - question: ¿Cuánto tarda en estar listo mi sitio?
-        answer: Un sitio de una a cinco páginas suele estar listo en dos a cuatro semanas, según el contenido disponible.
-      - question: ¿Puedo actualizar el contenido yo mismo?
-        answer: Sí. El contenido vive en archivos simples que puedes editar pidiéndoselo a un asistente de IA o con nuestra ayuda.
-      - question: ¿Mi sitio aparecerá en Google?
-        answer: El sitio incluye todas las bases técnicas de SEO. El posicionamiento depende también de tu contenido y de tu competencia; te ayudamos a medirlo.
+      - title: "Opción 1: desde Figma"
+        body: >-
+          Conecta tu archivo con FIGMA_API_KEY y FIGMA_FILE_KEY en .env. El
+          agente lee cada frame por su node-id y construye el sitio página por
+          página.
+      - title: "Opción 2: con Hallmark"
+        body: >-
+          Si no tienes un diseño previo, el agente de tu IDE usa la skill
+          Hallmark para proponer un diseño con criterio y lo implementa con las
+          secciones del template.
+      - title: Lo que aporta el template
+        body: >-
+          La infraestructura: secciones validadas, SEO técnico, formularios,
+          idiomas, integración con Binflow y revisiones automáticas. La
+          estructura y el contenido del sitio los construyes tú desde cero.
 
   - type: cta
-    id: llamada-a-la-accion
-    heading: ¿Listo para lanzar tu nuevo sitio?
-    body: Cuéntanos qué necesitas y te enviamos una propuesta sin compromiso.
+    id: siguiente-paso
+    heading: Pídele a tu agente "crea el home"
+    body: >-
+      Te preguntará qué camino prefieres, borrará esta portada de ejemplo y
+      construirá la real contigo.
     cta:
-      label: Escríbenos
-      href: "#contacto"
-
-  - type: contact
-    id: contacto
-    heading: Contáctanos
-    body: Déjanos tus datos y te respondemos en menos de un día hábil.
+      label: Leer la guía de diseño
+      href: https://github.com/arrobabeto/Bin-Astro-Template/blob/main/docs/guias/disenar-el-sitio.md

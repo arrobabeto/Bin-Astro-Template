@@ -6,6 +6,11 @@ Todo el contenido del sitio vive en `src/content/`, en archivos de texto que Git
 hay base de datos ni CMS: editar un archivo y publicarlo es todo el proceso. La razón de esta
 decisión está en la [ADR 0001](../adr/0001-contenido-en-git-sin-cms.md).
 
+El template no trae contenido sugerido. Los archivos que hay en `src/content/` son material de
+arranque: existen para que el build y las revisiones tengan algo que validar, y cada sitio los
+sustituye por los suyos (ver [ADR 0009](../adr/0009-stack-no-contenido.md)). Los ejemplos de
+esta guía muestran el formato, no textos que haya que usar.
+
 ## Las tres colecciones
 
 | Carpeta                    | Formato  | Qué contiene                                          |
@@ -100,9 +105,9 @@ updatedAt: 2026-09-28
 Texto en Markdown normal…
 ```
 
-Los que trae el template son un punto de partida y llevan el aviso "Plantilla de referencia".
-Deben adaptarse y revisarse legalmente; `pnpm check:placeholders` impide publicarlos sin
-cambios en un sitio de cliente.
+Los que trae el template son una referencia genérica con el aviso "Plantilla de referencia".
+Cada sitio los sustituye por los de su responsable, revisados legalmente;
+`pnpm check:placeholders` impide publicarlos con el aviso en un sitio de cliente.
 
 ## Textos globales (`site/es.yaml`)
 
@@ -114,7 +119,9 @@ Menú (`nav`), botón del encabezado (`headerCta`), pie de página (`footer`), d
 ## Página de agradecimiento
 
 `src/content/pages/es/gracias.yaml` se muestra cuando alguien envía un formulario sin
-JavaScript. Tiene `seo.noindex: true`, así que no aparece en Google ni en el sitemap.
+JavaScript. Tiene `seo.noindex: true`, así que no aparece en Google ni en el sitemap. La página
+se conserva porque los formularios la usan (`thankYouHref`), pero su texto se escribe para cada
+sitio.
 
 ## Editar sin programar
 
