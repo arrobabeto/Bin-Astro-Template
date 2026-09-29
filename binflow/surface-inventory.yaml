@@ -92,7 +92,7 @@ surfaces:
     locales:
       - es
     publication_target: github_content
-    sample: Tu sitio, sin complicaciones
+    sample: Contenido de ejemplo
     notes: "Componente: src/components/sections/SectionHero.astro"
   - bf_id: home.hero.heading
     kind: style_target
@@ -103,7 +103,7 @@ surfaces:
     locales:
       - es
     publication_target: github_content
-    sample: Sitios web profesionales listos para crecer
+    sample: Esta página es relleno y se va a borrar
     notes: "Componente: src/components/sections/SectionHero.astro"
   - bf_id: home.hero.body
     kind: copy
@@ -114,7 +114,7 @@ surfaces:
     locales:
       - es
     publication_target: github_content
-    sample: Un sitio rápido, bien posicionado en Google y fácil de actualizar. Nosotros nos encargamos de la parte técnica para que tú te enfoques en tu negocio.
+    sample: Es la portada de demostración de Bin Astro Template. Sirve para ver cómo se arma una página con bloques antes de diseñar el sitio real. Cuando le pidas a tu agente de IA "crea el home", este contenido se elimina.
     notes: "Componente: src/components/sections/SectionHero.astro"
   - bf_id: home.hero.image
     kind: image
@@ -125,7 +125,7 @@ surfaces:
     locales:
       - es
     publication_target: github_content
-    sample: ../../../assets/images/hero.jpg
+    sample: ../../../assets/images/demo-hero.jpg
     alt_locator: github:src/content/pages/es/index.yaml#sections.hero.image.alt
     presentation: img
     notes: "Componente: src/components/sections/SectionHero.astro"
@@ -138,7 +138,7 @@ surfaces:
     locales:
       - es
     publication_target: github_content
-    sample: Agenda una llamada
+    sample: Ver las dos formas de diseñar
     deny_reason: "Etiqueta o URL de CTA: es chrome, no texto editable."
     notes: "Componente: src/components/sections/SectionHero.astro"
   - bf_id: home.hero.secondaryCta
@@ -150,233 +150,98 @@ surfaces:
     locales:
       - es
     publication_target: github_content
-    sample: Ver servicios
+    sample: Qué pedirle al agente
     deny_reason: "Etiqueta o URL de CTA: es chrome, no texto editable."
     notes: "Componente: src/components/sections/SectionHero.astro"
-  - bf_id: home.servicios.shell
+  - bf_id: home.como-disenar.shell
     kind: container
     area: home
-    section: servicios
+    section: como-disenar
     path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.servicios
+    locator: github:src/content/pages/es/index.yaml#sections.como-disenar
     locales:
       - es
     publication_target: github_content
     sample: ""
     notes: "Componente: src/components/sections/SectionFeatures.astro"
-  - bf_id: home.servicios.eyebrow
+  - bf_id: home.como-disenar.eyebrow
     kind: copy
     area: home
-    section: servicios
+    section: como-disenar
     path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.servicios.eyebrow
+    locator: github:src/content/pages/es/index.yaml#sections.como-disenar.eyebrow
     locales:
       - es
     publication_target: github_content
-    sample: Servicios
+    sample: Dos caminos
     notes: "Componente: src/components/sections/SectionFeatures.astro"
-  - bf_id: home.servicios.heading
+  - bf_id: home.como-disenar.heading
     kind: style_target
     area: home
-    section: servicios
+    section: como-disenar
     path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.servicios.heading
+    locator: github:src/content/pages/es/index.yaml#sections.como-disenar.heading
     locales:
       - es
     publication_target: github_content
-    sample: Todo lo que tu sitio necesita
+    sample: Dos formas de diseñar tu sitio
     notes: "Componente: src/components/sections/SectionFeatures.astro"
-  - bf_id: home.servicios.body
+  - bf_id: home.como-disenar.body
     kind: copy
     area: home
-    section: servicios
+    section: como-disenar
     path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.servicios.body
+    locator: github:src/content/pages/es/index.yaml#sections.como-disenar.body
     locales:
       - es
     publication_target: github_content
-    sample: Cada proyecto incluye las bases técnicas que Google y tus clientes esperan.
+    sample: Elige una. En las dos, el contenido termina en archivos YAML de src/content/ y el código pasa las mismas revisiones automáticas.
     notes: "Componente: src/components/sections/SectionFeatures.astro"
-  - bf_id: home.nosotros.shell
+  - bf_id: home.siguiente-paso.shell
     kind: container
     area: home
-    section: nosotros
+    section: siguiente-paso
     path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.nosotros
+    locator: github:src/content/pages/es/index.yaml#sections.siguiente-paso
     locales:
       - es
     publication_target: github_content
     sample: ""
-    notes: "Componente: src/components/sections/SectionSplit.astro"
-  - bf_id: home.nosotros.eyebrow
-    kind: copy
-    area: home
-    section: nosotros
-    path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.nosotros.eyebrow
-    locales:
-      - es
-    publication_target: github_content
-    sample: Nosotros
-    notes: "Componente: src/components/sections/SectionSplit.astro"
-  - bf_id: home.nosotros.heading
+    notes: "Componente: src/components/sections/SectionCta.astro"
+  - bf_id: home.siguiente-paso.heading
     kind: style_target
     area: home
-    section: nosotros
+    section: siguiente-paso
     path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.nosotros.heading
+    locator: github:src/content/pages/es/index.yaml#sections.siguiente-paso.heading
     locales:
       - es
     publication_target: github_content
-    sample: Un equipo que cuida los detalles
-    notes: "Componente: src/components/sections/SectionSplit.astro"
-  - bf_id: home.nosotros.body
+    sample: Pídele a tu agente "crea el home"
+    notes: "Componente: src/components/sections/SectionCta.astro"
+  - bf_id: home.siguiente-paso.body
     kind: copy
     area: home
-    section: nosotros
+    section: siguiente-paso
     path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.nosotros.body
+    locator: github:src/content/pages/es/index.yaml#sections.siguiente-paso.body
     locales:
       - es
     publication_target: github_content
-    sample: Trabajamos con procesos claros y herramientas probadas. Cada cambio pasa por revisiones automáticas de calidad, accesibilidad y SEO antes de publicarse. El resultado es un sitio que carga en segundos, se ve bien en cualquier pantalla y crece contigo.
-    notes: "Componente: src/components/sections/SectionSplit.astro"
-  - bf_id: home.nosotros.image
-    kind: image
-    area: home
-    section: nosotros
-    path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.nosotros.image.src
-    locales:
-      - es
-    publication_target: github_content
-    sample: ../../../assets/images/equipo.jpg
-    alt_locator: github:src/content/pages/es/index.yaml#sections.nosotros.image.alt
-    presentation: img
-    notes: "Componente: src/components/sections/SectionSplit.astro"
-  - bf_id: home.nosotros.cta
+    sample: Te preguntará qué camino prefieres, borrará esta portada de ejemplo y construirá la real contigo.
+    notes: "Componente: src/components/sections/SectionCta.astro"
+  - bf_id: home.siguiente-paso.cta
     kind: chrome_denied
     area: home
-    section: nosotros
+    section: siguiente-paso
     path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.nosotros.cta
+    locator: github:src/content/pages/es/index.yaml#sections.siguiente-paso.cta
     locales:
       - es
     publication_target: github_content
-    sample: Hablemos de tu proyecto
-    deny_reason: "Etiqueta o URL de CTA: es chrome, no texto editable."
-    notes: "Componente: src/components/sections/SectionSplit.astro"
-  - bf_id: home.preguntas.shell
-    kind: container
-    area: home
-    section: preguntas
-    path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.preguntas
-    locales:
-      - es
-    publication_target: github_content
-    sample: ""
-    notes: "Componente: src/components/sections/SectionFaq.astro"
-  - bf_id: home.preguntas.heading
-    kind: style_target
-    area: home
-    section: preguntas
-    path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.preguntas.heading
-    locales:
-      - es
-    publication_target: github_content
-    sample: Preguntas frecuentes
-    notes: "Componente: src/components/sections/SectionFaq.astro"
-  - bf_id: home.preguntas.intro
-    kind: copy
-    area: home
-    section: preguntas
-    path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.preguntas.intro
-    locales:
-      - es
-    publication_target: github_content
-    sample: Respuestas rápidas a lo que más nos preguntan.
-    notes: "Componente: src/components/sections/SectionFaq.astro"
-  - bf_id: home.llamada-a-la-accion.shell
-    kind: container
-    area: home
-    section: llamada-a-la-accion
-    path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.llamada-a-la-accion
-    locales:
-      - es
-    publication_target: github_content
-    sample: ""
-    notes: "Componente: src/components/sections/SectionCta.astro"
-  - bf_id: home.llamada-a-la-accion.heading
-    kind: style_target
-    area: home
-    section: llamada-a-la-accion
-    path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.llamada-a-la-accion.heading
-    locales:
-      - es
-    publication_target: github_content
-    sample: ¿Listo para lanzar tu nuevo sitio?
-    notes: "Componente: src/components/sections/SectionCta.astro"
-  - bf_id: home.llamada-a-la-accion.body
-    kind: copy
-    area: home
-    section: llamada-a-la-accion
-    path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.llamada-a-la-accion.body
-    locales:
-      - es
-    publication_target: github_content
-    sample: Cuéntanos qué necesitas y te enviamos una propuesta sin compromiso.
-    notes: "Componente: src/components/sections/SectionCta.astro"
-  - bf_id: home.llamada-a-la-accion.cta
-    kind: chrome_denied
-    area: home
-    section: llamada-a-la-accion
-    path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.llamada-a-la-accion.cta
-    locales:
-      - es
-    publication_target: github_content
-    sample: Escríbenos
+    sample: Leer la guía de diseño
     deny_reason: "Etiqueta o URL de CTA: es chrome, no texto editable."
     notes: "Componente: src/components/sections/SectionCta.astro"
-  - bf_id: home.contacto.shell
-    kind: container
-    area: home
-    section: contacto
-    path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.contacto
-    locales:
-      - es
-    publication_target: github_content
-    sample: ""
-    notes: "Componente: src/components/sections/SectionContact.astro"
-  - bf_id: home.contacto.heading
-    kind: style_target
-    area: home
-    section: contacto
-    path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.contacto.heading
-    locales:
-      - es
-    publication_target: github_content
-    sample: Contáctanos
-    notes: "Componente: src/components/sections/SectionContact.astro"
-  - bf_id: home.contacto.body
-    kind: copy
-    area: home
-    section: contacto
-    path: src/content/pages/es/index.yaml
-    locator: github:src/content/pages/es/index.yaml#sections.contacto.body
-    locales:
-      - es
-    publication_target: github_content
-    sample: Déjanos tus datos y te respondemos en menos de un día hábil.
-    notes: "Componente: src/components/sections/SectionContact.astro"
   - bf_id: privacidad.document.shell
     kind: container
     area: privacidad
@@ -444,5 +309,5 @@ surfaces:
     locales:
       - es
     publication_target: github_content
-    sample: Construimos sitios web que cargan rápido, se encuentran en Google y se editan sin miedo.
+    sample: Sitio construido con Astro, rápido, accesible y fácil de mantener.
     notes: "Componente: src/components/layout/Footer.astro"

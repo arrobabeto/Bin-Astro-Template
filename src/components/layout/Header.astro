@@ -15,6 +15,7 @@ interface Props {
 const { chrome, locale, alternates = [] } = Astro.props
 const homeHref = localePath(locale, "")
 const otherLanguages = alternates.filter((alt) => alt.locale !== locale)
+const hasNav = chrome.nav.length > 0
 ---
 
 <header class="border-line bg-surface/90 sticky top-0 z-40 border-b backdrop-blur">
@@ -23,17 +24,19 @@ const otherLanguages = alternates.filter((alt) => alt.locale !== locale)
       {site.name}
     </a>
 
-    <nav aria-label={t(locale, "a11y.mainNav")} class="hidden md:block">
-      <ul class="flex items-center gap-6 text-sm font-medium">
-        {chrome.nav.map((item) => (
-          <li>
-            <a href={item.href} class="text-muted hover:text-ink">
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    {hasNav && (
+      <nav aria-label={t(locale, "a11y.mainNav")} class="hidden md:block">
+        <ul class="flex items-center gap-6 text-sm font-medium">
+          {chrome.nav.map((item) => (
+            <li>
+              <a href={item.href} class="text-muted hover:text-ink">
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )}
 
     <div class="flex items-center gap-3">
       {otherLanguages.length > 0 && (
@@ -65,31 +68,33 @@ const otherLanguages = alternates.filter((alt) => alt.locale !== locale)
         </a>
       )}
 
-      <details class="relative md:hidden">
-        <summary
-          class="border-line text-ink cursor-pointer list-none rounded-lg border px-3 py-2 text-sm"
-          aria-label={t(locale, "a11y.openMenu")}
-        >
-          ☰
-        </summary>
-        <nav
-          aria-label={t(locale, "a11y.mainNav")}
-          class="border-line bg-surface absolute right-0 mt-2 w-56 rounded-xl border p-3 shadow-lg"
-        >
-          <ul class="flex flex-col gap-1 text-sm">
-            {chrome.nav.map((item) => (
-              <li>
-                <a
-                  href={item.href}
-                  class="text-ink hover:bg-surface-muted block rounded-lg px-3 py-2"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </details>
+      {hasNav && (
+        <details class="relative md:hidden">
+          <summary
+            class="border-line text-ink cursor-pointer list-none rounded-lg border px-3 py-2 text-sm"
+            aria-label={t(locale, "a11y.openMenu")}
+          >
+            ☰
+          </summary>
+          <nav
+            aria-label={t(locale, "a11y.mainNav")}
+            class="border-line bg-surface absolute right-0 mt-2 w-56 rounded-xl border p-3 shadow-lg"
+          >
+            <ul class="flex flex-col gap-1 text-sm">
+              {chrome.nav.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class="text-ink hover:bg-surface-muted block rounded-lg px-3 py-2"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </details>
+      )}
     </div>
   </div>
 </header>

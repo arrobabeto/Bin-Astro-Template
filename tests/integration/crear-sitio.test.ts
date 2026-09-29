@@ -82,7 +82,10 @@ describe("pnpm bootstrap", () => {
     expect(result.output).toMatch(
       /index\.yaml sigue igual que el contenido demo/,
     )
-    expect(result.output).toMatch(/hero\.jpg sigue igual que el contenido demo/)
+    expect(result.output).toMatch(
+      /demo-hero\.jpg sigue igual que el contenido demo/,
+    )
+    expect(result.output).toMatch(/index\.yaml:1: portada demo del template/)
   })
 
   it("se niega a correr dos veces", () => {

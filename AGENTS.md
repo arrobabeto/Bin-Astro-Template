@@ -11,6 +11,13 @@ persona escriba en otro idioma.
 para formularios, trae SEO técnico completo y está listo para integrarse con Binflow mediante
 el contrato BSI. Visión general para personas: [README.md](README.md).
 
+Es un **template de stack, no un sitio de ejemplo** ([ADR 0009](docs/adr/0009-stack-no-contenido.md)).
+Su valor es la infraestructura: páginas como secciones validadas, SEO técnico, BSI, i18n,
+formularios opcionales, checks y CI. La estructura y el contenido de cada sitio se construyen
+desde cero con prompts, skills y Figma. Los tipos de sección, la portada, `gracias.yaml`, los
+legales y las imágenes que trae son material de arranque: no los trates como una estructura que
+haya que seguir.
+
 ## Mapa rápido
 
 | Qué                                        | Dónde                                                                              |
@@ -39,6 +46,7 @@ y `.agents/skills`). Antes de una tarea, revisa si hay una skill para ella y sí
 | Cambiar textos, imágenes, menú, contacto       | `editar-contenido`                                  |
 | Auditar o corregir SEO                         | `seo-audit`                                         |
 | Crear el sitio de un cliente desde el template | `nuevo-sitio`                                       |
+| Crear el home / empezar el diseño del sitio    | `disenar-sitio` (borra la portada demo)             |
 | Crear un tipo de bloque nuevo                  | `nueva-seccion`                                     |
 | Cambiar o migrar URLs                          | `agregar-redireccion`                               |
 | Agregar un idioma                              | `agregar-idioma`                                    |
@@ -57,6 +65,9 @@ Detalle de cada una: [skills/INVENTARIO.md](skills/INVENTARIO.md).
   textos de interfaz (etiquetas de formularios, accesibilidad) van en `src/i18n/ui.ts`.
 - No inventes datos: cifras, clientes, testimonios, precios, premios o experiencia. Si faltan,
   pregunta.
+- La portada del template (`src/content/pages/es/index.yaml` con el marcador
+  `bin-astro-template:demo`) es relleno: no la adaptes para construir el sitio. Cuando pidan
+  crear el home, usa la skill `disenar-sitio`, que la borra con `pnpm demo:clear`.
 - El `id` de una sección es estable (anclas y Binflow). No lo cambies sin motivo; si agregas,
   quitas o renombras secciones, corre `pnpm bsi:sync` y sube el inventario en el mismo commit.
 - Cambiar un slug cambia la URL: agrega la redirección 301 en `src/config/redirects.ts`.
@@ -73,6 +84,8 @@ Detalle de cada una: [skills/INVENTARIO.md](skills/INVENTARIO.md).
 - Ninguna variable de entorno es obligatoria: el build debe pasar sin ninguna.
 - Una sección nueva requiere schema, componente, registro, `AnySection`, `bsi-fields.ts` y
   `llms.ts` (`pnpm check:sections` lo verifica). Usa la skill `nueva-seccion`.
+- Los bloques de un sitio salen de su diseño. Reutiliza un tipo de arranque solo si encaja sin
+  forzar el diseño; si no, crea el tipo o modifica el existente.
 - Node 24 y pnpm 11. No agregues dependencias sin justificarlo.
 
 ### Documentación

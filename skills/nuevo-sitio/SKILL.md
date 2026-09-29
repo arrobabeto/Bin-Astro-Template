@@ -2,8 +2,9 @@
 name: nuevo-sitio
 description: >-
   Convierte una copia recién clonada de Bin Astro Template en el sitio de un
-  cliente: corre el bootstrap, ajusta marca, reemplaza el contenido demo y
-  deja todo listo para desplegar en Vercel. Úsala cuando pidan "empieza un
+  cliente: corre el bootstrap, ajusta marca, delega el diseño del home en
+  `disenar-sitio` (que borra el contenido demo) y deja todo listo para
+  desplegar en Vercel. Úsala cuando pidan "empieza un
   sitio nuevo para…", "configura este template para mi negocio" o justo
   después de clonar el template.
 ---
@@ -41,10 +42,11 @@ Pide solo lo que falte:
 3. **Colores y tipografía:** ajusta la escala `--color-brand-*` y demás tokens en
    `src/styles/global.css` ([docs/guias/diseno-y-marca.md](../../docs/guias/diseno-y-marca.md)).
    Actualiza `themeColor` en `src/config/site.ts`.
-4. **Contenido:** reescribe `src/content/site/es.yaml` y `src/content/pages/es/*.yaml` con la
-   información real (skill `editar-contenido`). Sin datos inventados: donde falte
-   información, pregunta o deja la sección fuera.
-5. **Fotos:** reemplaza `src/assets/images/*` por fotos reales con `alt` descriptivo.
+4. **Diseño y contenido del home:** sigue la skill `disenar-sitio`. Borra la portada demo con
+   `pnpm demo:clear` y construye el home desde Figma o con Hallmark. No edites la portada demo
+   para convertirla en el sitio real. Sin datos inventados: donde falte información, pregunta
+   o deja la sección fuera.
+5. **Fotos:** usa fotos reales en `src/assets/images/` con `alt` descriptivo.
 6. **Legales:** adapta `src/content/legal/es/*.md` con los datos del responsable y quita el
    aviso "Plantilla de referencia" **solo después** de que la persona confirme que un
    profesional lo revisó.

@@ -9,19 +9,20 @@ Estados: **estable** (probada, uso diario), **beta** (funciona, puede cambiar), 
 
 ## Resumen
 
-| Skill                      | Invocación                  | Para qué sirve                                             | Estado   |
-| -------------------------- | --------------------------- | ---------------------------------------------------------- | -------- |
-| `editar-contenido`         | `/editar-contenido`         | Cambiar textos, imágenes, menú o contacto sin tocar código | estable  |
-| `seo-audit`                | `/seo-audit [audit\|fix]`   | Auditar y corregir el SEO con criterios de Google y más    | estable  |
-| `nuevo-sitio`              | `/nuevo-sitio`              | Convertir el template en el sitio de un cliente            | estable  |
-| `nueva-seccion`            | `/nueva-seccion`            | Crear un tipo de bloque nuevo (precios, testimonios…)      | estable  |
-| `agregar-redireccion`      | `/agregar-redireccion`      | Redirigir URLs viejas (301) al cambiar o migrar páginas    | estable  |
-| `agregar-idioma`           | `/agregar-idioma`           | Hacer el sitio bilingüe o multilingüe                      | beta     |
-| `bsi-sync`                 | `/bsi-sync`                 | Mantener al día el inventario de Binflow                   | estable  |
-| `publicar-articulo`        | `/publicar-articulo`        | Publicar un artículo de blog con SEO, portada y PR         | beta     |
-| `construir-desde-figma`    | `/construir-desde-figma`    | Implementar un diseño de Figma como páginas del sitio      | beta     |
-| `figma-rest-design-reader` | `/figma-rest-design-reader` | Leer archivos de Figma con la API (sin MCP)                | opcional |
-| `hallmark`                 | `/hallmark`                 | Diseño visual con criterio, sin estética genérica de IA    | opcional |
+| Skill                      | Invocación                  | Para qué sirve                                              | Estado   |
+| -------------------------- | --------------------------- | ----------------------------------------------------------- | -------- |
+| `editar-contenido`         | `/editar-contenido`         | Cambiar textos, imágenes, menú o contacto sin tocar código  | estable  |
+| `seo-audit`                | `/seo-audit [audit\|fix]`   | Auditar y corregir el SEO con criterios de Google y más     | estable  |
+| `nuevo-sitio`              | `/nuevo-sitio`              | Convertir el template en el sitio de un cliente             | estable  |
+| `disenar-sitio`            | `/disenar-sitio`            | Borrar la portada demo y diseñar el home (Figma o Hallmark) | beta     |
+| `nueva-seccion`            | `/nueva-seccion`            | Crear un tipo de bloque nuevo (precios, testimonios…)       | estable  |
+| `agregar-redireccion`      | `/agregar-redireccion`      | Redirigir URLs viejas (301) al cambiar o migrar páginas     | estable  |
+| `agregar-idioma`           | `/agregar-idioma`           | Hacer el sitio bilingüe o multilingüe                       | beta     |
+| `bsi-sync`                 | `/bsi-sync`                 | Mantener al día el inventario de Binflow                    | estable  |
+| `publicar-articulo`        | `/publicar-articulo`        | Publicar un artículo de blog con SEO, portada y PR          | beta     |
+| `construir-desde-figma`    | `/construir-desde-figma`    | Implementar un diseño de Figma como páginas del sitio       | beta     |
+| `figma-rest-design-reader` | `/figma-rest-design-reader` | Leer archivos de Figma con la API (sin MCP)                 | opcional |
+| `hallmark`                 | `/hallmark`                 | Diseño visual con criterio, sin estética genérica de IA     | opcional |
 
 ## Fichas
 
@@ -68,8 +69,8 @@ Estados: **estable** (probada, uso diario), **beta** (funciona, puede cambiar), 
 
 - **Invocación:** `/nuevo-sitio`.
 - **Función:** convierte una copia del template en el sitio de un cliente: corre
-  `pnpm bootstrap`, ajusta logo, colores y datos, guía el reemplazo del contenido demo y deja
-  el sitio listo para Vercel.
+  `pnpm bootstrap`, ajusta logo, colores y datos, delega el diseño del home en
+  `disenar-sitio` y deja el sitio listo para Vercel.
 - **Casos de uso:** "empieza un sitio para Café Núñez", "configura este template para mi
   negocio", justo después de clonar.
 - **Cuándo no usarla:** si ya existe `template.lock.json` (el sitio ya fue creado): usa
@@ -79,23 +80,46 @@ Estados: **estable** (probada, uso diario), **beta** (funciona, puede cambiar), 
   `template.lock.json`, assets de marca e inventario BSI.
 - **Requisitos:** Node 24 y pnpm.
 - **Origen:** propia del template.
-- **Estado:** estable · v1.0 · 2026-09-28.
+- **Estado:** estable · v1.1 · 2026-09-29.
+
+### `disenar-sitio`
+
+- **Invocación:** `/disenar-sitio` o pedir "crea el home".
+- **Función:** borra la portada demo del template con `pnpm demo:clear` (tras confirmar) y
+  construye el home real por una de dos rutas: desde Figma, leyendo cada página por su
+  `node-id` con el token y la file key, o con Hallmark desde el agente del IDE, aplicando las
+  reglas del repo (tokens en `global.css`, copy en YAML, secciones con `nueva-seccion`).
+- **Casos de uso:** "crea el home", "diseña el sitio desde este Figma", "empecemos el diseño
+  con Hallmark", "quita la página de ejemplo".
+- **Cuándo no usarla:** si el home ya es contenido real (sin marcadores de demo): usa
+  `editar-contenido` o `hallmark redesign`.
+- **Entradas:** ruta (Figma o Hallmark); para Figma, `node-id` de cada página; para Hallmark,
+  audiencia, acción principal y tono; contenido real del cliente.
+- **Salidas:** `src/content/pages/es/index.yaml` y demás páginas, `src/content/site/es.yaml`,
+  tokens en `src/styles/global.css`, secciones nuevas si hacen falta, imágenes en
+  `src/assets/images/` e inventario BSI.
+- **Requisitos:** para Figma, `FIGMA_API_KEY` y `FIGMA_FILE_KEY` en `.env` (o el MCP de Figma).
+- **Origen:** propia del template; orquesta `construir-desde-figma` y `hallmark`.
+- **Estado:** beta · v1.0 · 2026-09-29.
 
 ### `nueva-seccion`
 
 - **Invocación:** `/nueva-seccion`.
 - **Función:** crea un tipo de bloque nuevo con sus cinco piezas sincronizadas: componente,
-  schema de validación, registro, mapa de renderizado y campos de Binflow.
+  schema de validación, registro, mapa de renderizado y campos de Binflow. Es el camino normal
+  para los bloques que pide el diseño de cada sitio: los tipos de arranque del template no son
+  un catálogo.
 - **Casos de uso:** "necesito una sección de precios", "agrega testimonios", "crea un bloque de
-  logos de clientes".
-- **Cuándo no usarla:** si una sección existente sirve con otro contenido (`editar-contenido`).
+  logos de clientes", "crea el bloque de este frame de Figma".
+- **Cuándo no usarla:** si un tipo que ya tiene el sitio reproduce el bloque sin forzar el
+  diseño y solo cambia el contenido (`editar-contenido`).
 - **Entradas:** qué debe mostrar el bloque y, si hay, el diseño de referencia.
 - **Salidas:** `src/components/sections/Section<Tipo>.astro` y `.schema.ts`, cambios en
   `registry.ts`, `AnySection.astro`, `src/lib/bsi-fields.ts`, `src/lib/llms.ts` y la guía de
   secciones.
 - **Requisitos:** ninguno.
 - **Origen:** propia del template (patrón de secciones de bhend-architektur).
-- **Estado:** estable · v1.0 · 2026-09-28.
+- **Estado:** estable · v1.1 · 2026-09-29.
 
 ### `agregar-redireccion`
 
@@ -159,9 +183,9 @@ Estados: **estable** (probada, uso diario), **beta** (funciona, puede cambiar), 
 ### `construir-desde-figma`
 
 - **Invocación:** `/construir-desde-figma`.
-- **Función:** implementa un diseño de Figma paso a paso: lee el frame, propone qué secciones
-  usar, crea las que falten, pasa el texto a YAML, sincroniza Binflow y verifica contra el
-  diseño.
+- **Función:** implementa un diseño de Figma paso a paso: lee el frame, propone los tipos de
+  sección que pide el diseño (reutiliza uno existente solo si encaja sin forzarlo), crea los
+  que falten, pasa el texto a YAML, sincroniza Binflow y verifica contra el diseño.
 - **Casos de uso:** "implementa esta página de Figma", "construye la home desde este link".
 - **Cuándo no usarla:** para solo inspeccionar un archivo (`figma-rest-design-reader`).
 - **Entradas:** link de Figma (archivo y nodo).
@@ -169,7 +193,7 @@ Estados: **estable** (probada, uso diario), **beta** (funciona, puede cambiar), 
   `src/content/pages/` e inventario BSI.
 - **Requisitos:** `FIGMA_API_KEY` y `FIGMA_FILE_KEY`, o el MCP de Figma conectado.
 - **Origen:** adaptada de `astro-cms-build-from-figma` de bhend-architektur (sin Orbitype).
-- **Estado:** beta · v1.0 · 2026-09-28.
+- **Estado:** beta · v1.1 · 2026-09-29.
 
 ### `figma-rest-design-reader`
 

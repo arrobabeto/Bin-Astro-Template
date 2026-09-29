@@ -2,19 +2,21 @@
 name: nueva-seccion
 description: >-
   Crea un tipo de sección nuevo (componente Astro + schema Zod + registro +
-  campos BSI de Binflow) cuando ninguno de los existentes sirve. Úsala cuando
-  pidan "necesito una sección de precios/testimonios/logos/equipo…", "crea un
-  bloque nuevo" o al implementar un diseño que no encaja en las secciones
-  actuales.
+  campos BSI de Binflow) para un bloque que pide el diseño del sitio. Úsala
+  cuando pidan "necesito una sección de precios/testimonios/logos/equipo…",
+  "crea un bloque nuevo" o al implementar un diseño (Figma o Hallmark) cuyos
+  bloques no coinciden con los tipos que ya tiene el proyecto.
 ---
 
 # Nueva sección
 
 <!-- check:docs ejemplos: src/components/sections/SectionPrecios.schema.ts src/components/sections/SectionPrecios.astro -->
 
-Un tipo de sección son cinco piezas que `pnpm check:sections` exige sincronizadas. Antes de
-crear una, confirma que no sirve una existente (`hero`, `features`, `split`, `cta`, `faq`,
-`prose`, `contact`, `newsletter`); ver [docs/guias/secciones.md](../../docs/guias/secciones.md).
+Un tipo de sección son cinco piezas que `pnpm check:sections` exige sincronizadas. Los tipos
+que trae el template (`hero`, `features`, `split`, `cta`, `faq`, `prose`, `contact`,
+`newsletter`) son bloques de arranque, no un catálogo: reutiliza uno solo si encaja con el
+diseño sin forzarlo; si no, crea el tipo nuevo. Ver
+[docs/guias/secciones.md](../../docs/guias/secciones.md).
 
 En los ejemplos el tipo nuevo es `precios` → componente `SectionPrecios`.
 
