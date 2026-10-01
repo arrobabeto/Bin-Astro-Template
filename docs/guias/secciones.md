@@ -35,14 +35,14 @@ ni estructuras sugeridas.
 
 Bloque principal al inicio de la página.
 
-| Campo          | Obligatorio | Descripción                 |
-| -------------- | ----------- | --------------------------- |
-| `eyebrow`      | no          | Texto corto sobre el título |
-| `heading`      | sí          | Título                      |
-| `body`         | no          | Texto de apoyo              |
-| `image`        | no          | Imagen a un lado            |
-| `cta`          | no          | Botón principal             |
-| `secondaryCta` | no          | Botón secundario            |
+| Campo          | Obligatorio | Descripción                                          |
+| -------------- | ----------- | ---------------------------------------------------- |
+| `eyebrow`      | no          | Texto corto sobre el título                          |
+| `heading`      | sí          | Título                                               |
+| `body`         | no          | Texto de apoyo                                       |
+| `image`        | no          | Imagen a un lado (`src`, `alt` y `caption` opcional) |
+| `cta`          | no          | Botón principal                                      |
+| `secondaryCta` | no          | Botón secundario                                     |
 
 ```yaml
 - type: hero
@@ -69,14 +69,14 @@ Bloque principal al inicio de la página.
 
 ### `split` — Texto con imagen
 
-| Campo           | Obligatorio | Descripción                            |
-| --------------- | ----------- | -------------------------------------- |
-| `eyebrow`       | no          | Texto corto sobre el título            |
-| `heading`       | sí          | Título                                 |
-| `body`          | sí          | Texto (admite varios párrafos)         |
-| `image`         | sí          | Imagen                                 |
-| `imagePosition` | no          | `left` o `right` (por defecto `right`) |
-| `cta`           | no          | Botón                                  |
+| Campo           | Obligatorio | Descripción                                |
+| --------------- | ----------- | ------------------------------------------ |
+| `eyebrow`       | no          | Texto corto sobre el título                |
+| `heading`       | sí          | Título                                     |
+| `body`          | sí          | Texto (admite varios párrafos)             |
+| `image`         | sí          | Imagen (`src`, `alt` y `caption` opcional) |
+| `imagePosition` | no          | `left` o `right` (por defecto `right`)     |
+| `cta`           | no          | Botón                                      |
 
 ### `faq` — Preguntas frecuentes
 

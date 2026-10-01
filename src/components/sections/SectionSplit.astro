@@ -20,18 +20,27 @@ const { id, area, isFirst, eyebrow, heading, body, image, imagePosition, cta } =
   {...bf(area, id, "shell", "container")}
 >
   <div class="container-page grid items-center gap-12 lg:grid-cols-2">
-    <Image
-      src={image.src}
-      alt={image.alt}
-      widths={[480, 768, 1024]}
-      sizes="(min-width: 1024px) 50vw, 100vw"
-      priority={isFirst}
-      class:list={[
-        "rounded-card aspect-[4/3] w-full object-cover",
-        imagePosition === "left" ? "lg:order-first" : "lg:order-last",
-      ]}
-      {...bf(area, id, "image", "image", { presentation: "img" })}
-    />
+    <figure
+      class={imagePosition === "left" ? "lg:order-first" : "lg:order-last"}
+    >
+      <Image
+        src={image.src}
+        alt={image.alt}
+        widths={[480, 768, 1024]}
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        priority={isFirst}
+        class="rounded-card aspect-[4/3] w-full object-cover"
+        {...bf(area, id, "image", "image", { presentation: "img" })}
+      />
+      {image.caption && (
+        <figcaption
+          class="text-muted mt-3 text-sm"
+          {...bf(area, id, "caption", "copy")}
+        >
+          {image.caption}
+        </figcaption>
+      )}
+    </figure>
     <div>
       {eyebrow && (
         <p

@@ -66,15 +66,25 @@ const { id, area, isFirst, eyebrow, heading, body, image, cta, secondaryCta } =
       )}
     </div>
     {image && (
-      <Image
-        src={image.src}
-        alt={image.alt}
-        widths={[480, 768, 1024, 1280]}
-        sizes="(min-width: 1024px) 50vw, 100vw"
-        priority={isFirst}
-        class="rounded-card aspect-[4/3] w-full object-cover shadow-xl"
-        {...bf(area, id, "image", "image", { presentation: "img" })}
-      />
+      <figure>
+        <Image
+          src={image.src}
+          alt={image.alt}
+          widths={[480, 768, 1024, 1280]}
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          priority={isFirst}
+          class="rounded-card aspect-[4/3] w-full object-cover shadow-xl"
+          {...bf(area, id, "image", "image", { presentation: "img" })}
+        />
+        {image.caption && (
+          <figcaption
+            class="text-muted mt-3 text-sm"
+            {...bf(area, id, "caption", "copy")}
+          >
+            {image.caption}
+          </figcaption>
+        )}
+      </figure>
     )}
   </div>
 </section>

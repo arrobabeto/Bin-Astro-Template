@@ -27,7 +27,10 @@ export const link = z.object({
     ),
 })
 
-/** Imagen local optimizada por astro:assets. El `alt` es obligatorio (SEO y accesibilidad). */
+/**
+ * Imagen local optimizada por astro:assets. El `alt` es obligatorio (SEO y
+ * accesibilidad); el `caption` es opcional y se muestra como pie de foto.
+ */
 export const imageWithAlt = ({ image }: SchemaContext) =>
   z.object({
     src: image(),
@@ -35,4 +38,5 @@ export const imageWithAlt = ({ image }: SchemaContext) =>
       .string()
       .trim()
       .min(1, "Toda imagen necesita un `alt` que describa su contenido."),
+    caption: text.optional(),
   })

@@ -15,6 +15,7 @@ entender por qué el template es como es.
 | [0007](0007-medicion-opcional-sin-banner.md) | Medición opcional y sin banner de cookies             | Aceptada |
 | [0008](0008-portada-demo-destruible.md)      | Portada demo destruible con `pnpm demo:clear`         | Aceptada |
 | [0009](0009-stack-no-contenido.md)           | Un stack, no un sitio de ejemplo                      | Aceptada |
+| [0010](0010-formatos-de-imagen.md)           | AVIF como original, WebP publicado                    | Aceptada |
 
 ## Cómo escribir una ADR
 

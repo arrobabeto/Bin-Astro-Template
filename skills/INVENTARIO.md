@@ -20,6 +20,8 @@ Estados: **estable** (probada, uso diario), **beta** (funciona, puede cambiar), 
 | `agregar-idioma`           | `/agregar-idioma`           | Hacer el sitio bilingüe o multilingüe                       | beta     |
 | `bsi-sync`                 | `/bsi-sync`                 | Mantener al día el inventario de Binflow                    | estable  |
 | `publicar-articulo`        | `/publicar-articulo`        | Publicar un artículo de blog con SEO, portada y PR          | beta     |
+| `optimizar-imagenes`       | `/optimizar-imagenes`       | Imágenes ligeras para web sin que se vean pixeladas         | beta     |
+| `seo-imagenes`             | `/seo-imagenes`             | Nombres SEO, alt y pie de foto de las imágenes              | beta     |
 | `construir-desde-figma`    | `/construir-desde-figma`    | Implementar un diseño de Figma como páginas del sitio       | beta     |
 | `figma-rest-design-reader` | `/figma-rest-design-reader` | Leer archivos de Figma con la API (sin MCP)                 | opcional |
 | `hallmark`                 | `/hallmark`                 | Diseño visual con criterio, sin estética genérica de IA     | opcional |
@@ -42,7 +44,7 @@ Estados: **estable** (probada, uso diario), **beta** (funciona, puede cambiar), 
   inventario BSI actualizado si cambiaron secciones.
 - **Requisitos:** ninguno.
 - **Origen:** propia del template.
-- **Estado:** estable · v1.0 · 2026-09-28.
+- **Estado:** estable · v1.1 · 2026-10-01.
 
 ### `seo-audit`
 
@@ -179,6 +181,44 @@ Estados: **estable** (probada, uso diario), **beta** (funciona, puede cambiar), 
 - **Origen:** adaptada de `upload-blog` de webbin (sin rutas ni marca de webbin; script de
   portada reescrito en Node con sharp).
 - **Estado:** beta · v1.0 · 2026-09-28.
+
+### `optimizar-imagenes`
+
+- **Invocación:** `/optimizar-imagenes` o pedir "optimiza las imágenes".
+- **Función:** reduce el peso de las imágenes sin pérdida visible: corrige la orientación,
+  limita el ancho sin agrandar nunca, quita metadatos y busca la calidad más baja cuyo
+  resultado sigue siendo igual al original (SSIM). Elige el formato según dónde vive la imagen
+  (AVIF en `src/assets/`, WebP en `public/`, JPG para redes sociales), actualiza las rutas en
+  el contenido y genera una vista previa al 100 % para revisarla a ojo.
+- **Casos de uso:** "esta foto pesa mucho", "optimiza las imágenes del sitio", "convierte las
+  fotos a AVIF", "`check:assets` avisa que una imagen pesa demasiado".
+- **Cuándo no usarla:** para nombres, `alt` o pie de foto (`seo-imagenes`); para portadas de
+  artículos (`publicar-articulo` ya las prepara); para SVG, favicons o íconos.
+- **Entradas:** archivo o carpeta; opcional formato, ancho máximo o modo sin pérdida.
+- **Salidas:** imágenes optimizadas en `src/assets/` o `public/`, citas actualizadas en
+  `src/content/` y componentes, inventario BSI si cambiaron rutas.
+- **Requisitos:** ninguno (usa `sharp`, ya instalado).
+- **Origen:** propia del template ([ADR 0010](../docs/adr/0010-formatos-de-imagen.md)).
+- **Estado:** beta · v1.0 · 2026-10-01.
+
+### `seo-imagenes`
+
+- **Invocación:** `/seo-imagenes` o pedir "mejora el SEO de las imágenes".
+- **Función:** audita las imágenes (nombre, peso, dónde se usan, `alt` y `caption`), las
+  renombra con nombres descriptivos inferidos del nombre actual, de la sección y su texto o
+  viendo la imagen, actualiza todas las citas y escribe el `alt` y el pie de foto en el
+  contenido sin inventar datos. Usa `optimizar-imagenes` para el peso.
+- **Casos de uso:** "ponle alt a las fotos", "renombra IMG_2041 con un nombre SEO", "agrega
+  pies de foto", "revisa el SEO de las imágenes antes de lanzar".
+- **Cuándo no usarla:** para una auditoría SEO completa del sitio (`seo-audit`); solo para
+  bajar el peso (`optimizar-imagenes`).
+- **Entradas:** imágenes o páginas a revisar; opcional palabra clave y datos para los pies de
+  foto (lugar, créditos).
+- **Salidas:** imágenes renombradas, `alt` y `caption` en `src/content/`, citas actualizadas e
+  inventario BSI.
+- **Requisitos:** ninguno.
+- **Origen:** propia del template; criterios de Google Imágenes y WCAG.
+- **Estado:** beta · v1.0 · 2026-10-01.
 
 ### `construir-desde-figma`
 
