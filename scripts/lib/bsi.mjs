@@ -9,7 +9,10 @@ import path from "node:path"
 import YAML from "yaml"
 
 import { DEFAULT_LOCALE, ENABLED_LOCALES } from "../../src/config/locales.ts"
-import { SECTION_BSI_FIELDS } from "../../src/lib/bsi-fields.ts"
+import {
+  NESTED_BSI_FIELDS,
+  SECTION_BSI_FIELDS,
+} from "../../src/lib/bsi-fields.ts"
 
 export const INVENTORY_PATH = "binflow/surface-inventory.yaml"
 export const PUBLICATION_TARGET = "github_content"
@@ -80,7 +83,11 @@ function pageRows(file) {
     const fields = SECTION_BSI_FIELDS[section.type]
     if (!fields) continue
     for (const [field, kind] of Object.entries(fields)) {
-      const value = field === "shell" ? section : section[field]
+      const fieldPath = NESTED_BSI_FIELDS[field] ?? field
+      const value =
+        field === "shell"
+          ? section
+          : fieldPath.split(".").reduce((node, key) => node?.[key], section)
       if (value === undefined || value === null) continue
       const pointer = `sections.${section.id}`
       const row = {
@@ -94,7 +101,7 @@ function pageRows(file) {
             ? `github:${file}#${pointer}`
             : kind === "image"
               ? `github:${file}#${pointer}.${field}.src`
-              : `github:${file}#${pointer}.${field}`,
+              : `github:${file}#${pointer}.${fieldPath}`,
         locales: [locale],
         publication_target: PUBLICATION_TARGET,
         sample: field === "shell" ? "" : sampleOf(value),

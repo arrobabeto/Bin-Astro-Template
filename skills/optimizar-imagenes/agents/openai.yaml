@@ -1,0 +1,3 @@
+display_name: "Optimizar imágenes"
+short_description: "Imágenes ligeras para web sin pérdida visible (AVIF/WebP)"
+default_prompt: "Usa $optimizar-imagenes para optimizar las imágenes del sitio sin que se vean pixeladas."

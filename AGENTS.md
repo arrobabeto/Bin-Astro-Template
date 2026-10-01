@@ -52,6 +52,8 @@ y `.agents/skills`). Antes de una tarea, revisa si hay una skill para ella y sí
 | Agregar un idioma                              | `agregar-idioma`                                    |
 | Mantener el inventario de Binflow              | `bsi-sync`                                          |
 | Publicar un artículo de blog                   | `publicar-articulo`                                 |
+| Optimizar el peso de imágenes                  | `optimizar-imagenes`                                |
+| Nombres, alt y caption de imágenes (SEO)       | `seo-imagenes`                                      |
 | Implementar un diseño de Figma                 | `construir-desde-figma`, `figma-rest-design-reader` |
 | Diseño visual con criterio                     | `hallmark`                                          |
 

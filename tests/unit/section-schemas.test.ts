@@ -88,6 +88,16 @@ describe("sections", () => {
     ).toMatch(/alt/)
   })
 
+  it("el pie de foto es opcional pero no puede ir vacío", () => {
+    const image = { src: "hero.jpg", alt: "Portada del sitio" }
+    expect(
+      errors([{ ...hero, image: { ...image, caption: "Foto: Ana Ruiz." } }]),
+    ).toEqual([])
+    expect(errors([{ ...hero, image: { ...image, caption: " " } }])[0]).toMatch(
+      /vacío/,
+    )
+  })
+
   it("los enlaces solo aceptan rutas, anclas, https, mailto o tel", () => {
     expect(
       errors([

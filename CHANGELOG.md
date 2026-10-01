@@ -23,12 +23,18 @@ sitios que actualizan desde el template (ver
 
 ### Agregado
 
+- Skill `optimizar-imagenes`: imágenes ligeras sin pérdida visible (calidad ajustada con SSIM),
+  AVIF en `src/assets/`, WebP en `public/` y JPG para redes sociales
+  ([ADR 0010](docs/adr/0010-formatos-de-imagen.md)).
+- Skill `seo-imagenes`: auditoría de imágenes, nombres de archivo SEO con citas actualizadas,
+  `alt` y pie de foto.
+- Pie de foto opcional (`image.caption`) en las secciones `hero` y `split`, editable desde
+  Binflow como `copy`. Sin pasos manuales: los YAML existentes siguen siendo válidos.
 - `pnpm demo:clear` y la skill `disenar-sitio`: borran la portada demo al crear el home y
   guían el diseño desde Figma (por `node-id`) o con Hallmark. `check:placeholders` bloquea la
   portada demo o la provisional tras `pnpm bootstrap` (ver
   [Diseñar el sitio](docs/guias/disenar-el-sitio.md) y la ADR 0008). Sin pasos manuales para
   sitios existentes: su portada no tiene el marcador de demo.
-
 - Licencia MIT para el código, con aviso de que los nombres Bin Astro Template, Binflow y
   BSI son marcas privadas.
 - `pnpm test:integration`: casos de uso reales en una copia temporal del repo.
