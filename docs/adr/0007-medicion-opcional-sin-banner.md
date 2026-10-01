@@ -1,6 +1,6 @@
 # 0007 — Medición opcional y sin banner de cookies
 
-**Estado:** Aceptada
+**Estado:** Reemplazada por [0011](0011-consentimiento-solo-con-rastreo.md)
 
 ## Contexto
 

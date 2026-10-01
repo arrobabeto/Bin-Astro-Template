@@ -8,6 +8,9 @@ type ClientEnv = {
   PUBLIC_GTM_ID?: string
   PUBLIC_GA4_ID?: string
   PUBLIC_GSC_VERIFICATION?: string
+  PUBLIC_GOOGLE_ADS_ID?: string
+  PUBLIC_META_PIXEL_ID?: string
+  PUBLIC_TIKTOK_PIXEL_ID?: string
 }
 
 async function loadAnalytics(
@@ -20,6 +23,9 @@ async function loadAnalytics(
     PUBLIC_GTM_ID: "",
     PUBLIC_GA4_ID: "",
     PUBLIC_GSC_VERIFICATION: "",
+    PUBLIC_GOOGLE_ADS_ID: "",
+    PUBLIC_META_PIXEL_ID: "",
+    PUBLIC_TIKTOK_PIXEL_ID: "",
     ...client,
   }))
   return import("~/lib/analytics")
@@ -83,5 +89,63 @@ describe("Caso de uso: activar la medición", () => {
       { VERCEL_ENV: "preview" },
     )
     expect(analytics.gscVerification).toBe("abcDEF123_-xyz")
+  })
+})
+
+describe("Caso de uso: activar píxeles de publicidad", () => {
+  it("sin medición ni píxeles no hay banner de cookies", async () => {
+    const analytics = await loadAnalytics({
+      PUBLIC_GSC_VERIFICATION: "abcDEF123_-xyz",
+    })
+    expect(analytics.hasTrackers).toBe(false)
+    expect(analytics.showConsentBanner).toBe(false)
+  })
+
+  it("los píxeles de Meta y TikTok activan el banner con la categoría de publicidad", async () => {
+    const analytics = await loadAnalytics({
+      PUBLIC_META_PIXEL_ID: "123456789012345",
+      PUBLIC_TIKTOK_PIXEL_ID: "C4ABCDEFGHIJ1234567K",
+    })
+    expect(analytics.metaPixelId).toBe("123456789012345")
+    expect(analytics.tiktokPixelId).toBe("C4ABCDEFGHIJ1234567K")
+    expect(analytics.showConsentBanner).toBe(true)
+    expect(analytics.usesMarketing).toBe(true)
+    expect(analytics.usesAnalytics).toBe(false)
+  })
+
+  it("con Tag Manager, Google Ads se configura dentro de GTM", async () => {
+    const soloAds = await loadAnalytics({
+      PUBLIC_GOOGLE_ADS_ID: "AW-123456789",
+    })
+    expect(soloAds.googleAdsId).toBe("AW-123456789")
+
+    const conGtm = await loadAnalytics({
+      PUBLIC_GTM_ID: "GTM-ABC1234",
+      PUBLIC_GOOGLE_ADS_ID: "AW-123456789",
+    })
+    expect(conGtm.googleAdsId).toBe("")
+    expect(conGtm.usesAnalytics).toBe(true)
+    expect(conGtm.usesMarketing).toBe(true)
+  })
+
+  it("IDs de píxel mal copiados se ignoran", async () => {
+    const analytics = await loadAnalytics({
+      PUBLIC_GOOGLE_ADS_ID: "123456789",
+      PUBLIC_META_PIXEL_ID: "fbq('init')",
+      PUBLIC_TIKTOK_PIXEL_ID: "abc",
+    })
+    expect(analytics.googleAdsId).toBe("")
+    expect(analytics.metaPixelId).toBe("")
+    expect(analytics.tiktokPixelId).toBe("")
+    expect(analytics.hasTrackers).toBe(false)
+  })
+
+  it("en previews tampoco se cargan los píxeles", async () => {
+    const analytics = await loadAnalytics(
+      { PUBLIC_META_PIXEL_ID: "123456789012345" },
+      { VERCEL_ENV: "preview" },
+    )
+    expect(analytics.metaPixelId).toBe("")
+    expect(analytics.showConsentBanner).toBe(false)
   })
 })

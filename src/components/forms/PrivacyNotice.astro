@@ -1,0 +1,32 @@
+---
+/**
+ * Aviso de privacidad bajo los formularios. Si el sitio define un aviso
+ * simplificado (legal.formNotice en src/content/site/<idioma>.yaml) se muestra
+ * ese; si no, una frase genérica con el enlace al aviso completo.
+ */
+import { type Locale } from "~/config/locales"
+import { t } from "~/i18n/ui"
+import { bf } from "~/lib/bf"
+import type { SiteChrome } from "~/lib/routes"
+
+interface Props {
+  chrome: SiteChrome
+  locale: Locale
+  class?: string
+}
+
+const { chrome, locale, class: className } = Astro.props
+const notice = chrome.legal?.formNotice
+---
+
+<p class:list={["text-muted text-xs", className]}>
+  {notice ? (
+    <span {...bf("chrome", "legal", "formNotice", "copy")}>{notice}</span>
+  ) : (
+    t(locale, "form.privacyNotice")
+  )}{" "}
+  <a href={chrome.privacyHref} class="underline underline-offset-2">
+    {t(locale, "form.privacyLink")}
+  </a>
+  .
+</p>

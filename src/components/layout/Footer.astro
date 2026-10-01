@@ -2,6 +2,7 @@
 import { type Locale } from "~/config/locales"
 import { site } from "~/config/site"
 import { t } from "~/i18n/ui"
+import { showConsentBanner } from "~/lib/analytics"
 import { bf } from "~/lib/bf"
 import type { SiteChrome } from "~/lib/routes"
 
@@ -55,6 +56,17 @@ const year = new Date().getFullYear()
             </a>
           </li>
         ))}
+        {showConsentBanner && (
+          <li>
+            <button
+              type="button"
+              data-consent-open
+              class="text-muted hover:text-ink cursor-pointer"
+            >
+              {t(locale, "consent.settings")}
+            </button>
+          </li>
+        )}
         {chrome.social.map((item) => (
           <li>
             <a

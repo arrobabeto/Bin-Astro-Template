@@ -73,8 +73,9 @@ _"crea el home"_ (skill `/disenar-sitio`) o sigue [Diseñar el sitio](disenar-el
 - El menú, el pie de página y el contacto de `src/content/site/es.yaml` se escriben para el
   sitio.
 - El aviso de privacidad y los términos de `src/content/legal/es/` son una referencia
-  genérica: se sustituyen por los del cliente. **Deben revisarlos el cliente o su asesor
-  legal**.
+  genérica: se sustituyen por los del cliente con la skill `textos-legales`, que también
+  configura el banner de cookies si hay medición o publicidad. **Deben revisarlos el cliente o
+  su asesor legal** (ver [Textos legales y cookies](textos-legales.md)).
 - `gracias.yaml` se conserva como página (los formularios la usan), pero su texto se escribe
   para el sitio.
 - Las imágenes son las del cliente, en `src/assets/images/`.

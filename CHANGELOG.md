@@ -30,6 +30,16 @@ sitios que actualizan desde el template (ver
   `alt` y pie de foto.
 - Pie de foto opcional (`image.caption`) en las secciones `hero` y `split`, editable desde
   Binflow como `copy`. Sin pasos manuales: los YAML existentes siguen siendo válidos.
+- Skill `textos-legales`: entrevista y redacción del aviso de privacidad (integral y
+  simplificado), términos, política de cookies y aviso legal según el país, con los requisitos
+  de México cargados (ver [Textos legales y cookies](docs/guias/textos-legales.md)).
+- Banner de consentimiento ligero con Google Consent Mode v2, solo cuando hay medición o
+  publicidad configurada; modo, renovación y versión en `src/config/consent.ts`
+  ([ADR 0011](docs/adr/0011-consentimiento-solo-con-rastreo.md), reemplaza a la 0007).
+- Variables `PUBLIC_GOOGLE_ADS_ID`, `PUBLIC_META_PIXEL_ID` y `PUBLIC_TIKTOK_PIXEL_ID`.
+- Aviso simplificado configurable bajo los formularios (`legal.formNotice`).
+  **Paso manual** para sitios con GTM o GA4 que actualicen: revisen `src/config/consent.ts`
+  (por defecto `opt-in`, nada se carga hasta aceptar) y sus textos legales.
 - `pnpm demo:clear` y la skill `disenar-sitio`: borran la portada demo al crear el home y
   guían el diseño desde Figma (por `node-id`) o con Hallmark. `check:placeholders` bloquea la
   portada demo o la provisional tras `pnpm bootstrap` (ver

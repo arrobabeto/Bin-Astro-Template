@@ -54,6 +54,12 @@ export default defineConfig({
       PUBLIC_SITE_URL: envField.string({ ...optionalPublic, optional: true }),
       PUBLIC_GTM_ID: envField.string({ ...optionalPublic, default: "" }),
       PUBLIC_GA4_ID: envField.string({ ...optionalPublic, default: "" }),
+      PUBLIC_GOOGLE_ADS_ID: envField.string({ ...optionalPublic, default: "" }),
+      PUBLIC_META_PIXEL_ID: envField.string({ ...optionalPublic, default: "" }),
+      PUBLIC_TIKTOK_PIXEL_ID: envField.string({
+        ...optionalPublic,
+        default: "",
+      }),
       PUBLIC_GSC_VERIFICATION: envField.string({
         ...optionalPublic,
         default: "",

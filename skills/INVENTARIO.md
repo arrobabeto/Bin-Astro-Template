@@ -22,6 +22,7 @@ Estados: **estable** (probada, uso diario), **beta** (funciona, puede cambiar), 
 | `publicar-articulo`        | `/publicar-articulo`        | Publicar un artículo de blog con SEO, portada y PR          | beta     |
 | `optimizar-imagenes`       | `/optimizar-imagenes`       | Imágenes ligeras para web sin que se vean pixeladas         | beta     |
 | `seo-imagenes`             | `/seo-imagenes`             | Nombres SEO, alt y pie de foto de las imágenes              | beta     |
+| `textos-legales`           | `/textos-legales`           | Aviso de privacidad, términos, cookies y banner por país    | beta     |
 | `construir-desde-figma`    | `/construir-desde-figma`    | Implementar un diseño de Figma como páginas del sitio       | beta     |
 | `figma-rest-design-reader` | `/figma-rest-design-reader` | Leer archivos de Figma con la API (sin MCP)                 | opcional |
 | `hallmark`                 | `/hallmark`                 | Diseño visual con criterio, sin estética genérica de IA     | opcional |
@@ -218,6 +219,29 @@ Estados: **estable** (probada, uso diario), **beta** (funciona, puede cambiar), 
   inventario BSI.
 - **Requisitos:** ninguno.
 - **Origen:** propia del template; criterios de Google Imágenes y WCAG.
+- **Estado:** beta · v1.0 · 2026-10-01.
+
+### `textos-legales`
+
+- **Invocación:** `/textos-legales` o pedir "haz el aviso de privacidad y lo legal del sitio".
+- **Función:** detecta lo que el sitio usa (formularios, medición, píxeles, embeds), entrevista
+  al cliente (país, responsable, datos, finalidades, analíticas, publicidad, venta en línea,
+  conservación y cada cuánto se vuelve a preguntar por las cookies) y redacta el aviso de
+  privacidad integral y simplificado, términos, política de cookies y aviso legal si aplica.
+  Configura el banner de consentimiento (`src/config/consent.ts`). Trae los requisitos de
+  México (LFPDPPP 2025) e investiga otros países en fuentes oficiales.
+- **Casos de uso:** "necesito el aviso de privacidad", "agregamos el píxel de Meta, ajusta lo
+  legal", "el cliente es de España", "el banner debe preguntar en cada visita".
+- **Cuándo no usarla:** para cambiar una palabra de un texto legal ya aprobado
+  (`editar-contenido`); para asesoría legal (no la sustituye).
+- **Entradas:** país del responsable y respuestas de la entrevista; opcional textos legales
+  previos del cliente.
+- **Salidas:** documentos en `src/content/legal/<idioma>/` con marcador de revisión pendiente,
+  `legal.*` en `src/content/site/<idioma>.yaml`, `src/config/consent.ts`, enlaces del pie,
+  inventario BSI y checklist del país con fuentes.
+- **Requisitos:** ninguno; las variables de píxeles se configuran en Vercel.
+- **Origen:** propia del template; LFPDPPP (DOF 20-03-2025) y leyes de cada país en fuentes
+  oficiales.
 - **Estado:** beta · v1.0 · 2026-10-01.
 
 ### `construir-desde-figma`
