@@ -1,7 +1,7 @@
 /**
  * Historias de la skill textos-legales: el inventario detecta lo que el sitio
- * usa, el banner de cookies solo aparece con rastreo y los textos con revisión
- * pendiente se señalan.
+ * usa, el banner de cookies solo aparece con rastreo y los textos adaptados se
+ * publican sin avisos de borrador.
  */
 import { afterAll, beforeAll, describe, expect, it } from "vitest"
 
@@ -57,18 +57,18 @@ describe("Historia: el agente revisa qué datos recaba el sitio", () => {
     expect(report.textosLegales.length).toBeGreaterThan(0)
   })
 
-  it("check:placeholders avisa de los textos legales pendientes de revisión", () => {
-    ws.edit("src/content/legal/es/privacidad.md", (md) =>
-      md.replace(
-        /^---\n([\s\S]*?)\n---\n/,
-        "---\n$1\n---\n\n<!-- bin-astro-template:legal-revision-pendiente -->\n",
-      ),
-    )
+  it("un texto legal adaptado se publica sin avisos de borrador", () => {
     ws.write("template.lock.json", "{}")
-    const result = ws.run("scripts/check-content-placeholders.mjs")
-    expect(result.output).toMatch(
-      /privacidad\.md:\d+: texto legal pendiente de revisión profesional/,
+    const before = ws.run("scripts/check-content-placeholders.mjs")
+    expect(before.output).toMatch(
+      /privacidad\.md:\d+: aviso legal de plantilla/,
     )
+
+    ws.edit("src/content/legal/es/privacidad.md", (md) =>
+      md.replace(/^> \*\*Plantilla de referencia\.\*\*.*\n/m, ""),
+    )
+    const after = ws.run("scripts/check-content-placeholders.mjs")
+    expect(after.output).not.toMatch(/privacidad\.md/)
   })
 })
 

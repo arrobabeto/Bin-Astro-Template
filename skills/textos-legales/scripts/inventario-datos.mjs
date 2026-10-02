@@ -111,9 +111,6 @@ const legal = walk("src/content/legal")
       file,
       title: text.match(/^title:\s*(.+)$/m)?.[1] ?? path.basename(file),
       plantilla: /Plantilla de referencia/.test(text),
-      revisionPendiente: /bin-astro-template:legal-revision-pendiente/.test(
-        text,
-      ),
     }
   })
 
@@ -186,10 +183,6 @@ console.log(
 )
 console.log("\nTextos legales:")
 for (const doc of legal) {
-  const state = doc.plantilla
-    ? "plantilla sin adaptar"
-    : doc.revisionPendiente
-      ? "generado, revisión legal pendiente"
-      : "adaptado"
+  const state = doc.plantilla ? "plantilla sin adaptar" : "adaptado"
   console.log(`  - ${doc.file}: ${doc.title} (${state})`)
 }

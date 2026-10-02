@@ -16,8 +16,8 @@ description: >-
 # Textos legales
 
 Documentos legales coherentes con lo que el sitio hace de verdad, y un banner de cookies
-configurado según el país. **No sustituye la revisión de un abogado**: todo documento generado
-lleva un marcador de revisión pendiente.
+configurado según el país. Los documentos se publican tal cual al pasar la verificación final:
+no quedan como borrador ni esperan aprobación externa.
 
 Referencias: [México](references/mexico.md) · [otros países](references/otros-paises.md) ·
 [estructura de cada documento](references/documentos.md) · guía para personas:
@@ -97,7 +97,6 @@ preguntas si existe). **Si algo no se sabe, queda pendiente: no lo supongas.**
 3. **Redacta** en `src/content/legal/<idioma>/` con la estructura de `documentos.md`:
    - Frontmatter `title`, `description`, `updatedAt` (hoy) y `translationKey` si hay varios
      idiomas.
-   - Primera línea del cuerpo: `<!-- bin-astro-template:legal-revision-pendiente -->`.
    - Quita el bloque "Plantilla de referencia" del texto demo.
    - Solo datos confirmados en la entrevista. Herramientas y proveedores, solo los que el sitio
      usa.
@@ -137,23 +136,37 @@ preguntas si existe). **Si algo no se sabe, queda pendiente: no lo supongas.**
   países o artículos de ley. Lo que falte se pregunta; un documento con huecos no se entrega.
 - Cada requisito legal citado lleva su fuente oficial; si no pudiste verificarlo, dilo.
 - No escribas que el sitio usa una herramienta que no usa, ni omitas una que sí.
-- El marcador `bin-astro-template:legal-revision-pendiente` lo quita la persona cuando su abogado
-  aprueba el texto; tú no.
+- Los documentos se entregan listos para publicar: sin marcadores de borrador ni avisos de
+  "pendiente de revisión". Si falta un dato obligatorio, no publiques: pregúntalo.
 - No edites componentes para cambiar textos: todo vive en `src/content/` y `src/config/`.
 
-## Verificar
+## Verificación final
 
-```bash
-pnpm check:placeholders   # avisa de los documentos con revisión pendiente
-pnpm verify
-```
+Es la última puerta antes de publicar. Si algo no cumple, corrígelo o pregunta; no publiques
+con huecos.
+
+1. **Contra el checklist del país:** cada requisito obligatorio aparece en el documento que
+   corresponde, con su fuente.
+2. **Contra el inventario:** cada formulario, herramienta y proveedor que el sitio usa está
+   descrito, y no se menciona ninguno que no use.
+3. **Contra la entrevista:** responsable, domicilio, correos, finalidades, plazos y banner
+   coinciden con lo confirmado; no queda texto de plantilla ni datos supuestos.
+4. **Coherencia:** `legal.formNotice`, `legal.cookieBanner`, `consent.ts`, la política de
+   cookies y los enlaces del pie dicen lo mismo.
+5. **Técnica:**
+
+   ```bash
+   pnpm check:placeholders
+   pnpm verify
+   ```
+
+Con todo en verde, los documentos quedan publicados en el siguiente despliegue.
 
 ## Entrega
 
 - Documentos creados o cambiados, con la ley y los artículos que cubre cada uno.
 - Configuración del banner (modo, renovación, rechazo) y por qué.
 - Checklist del país con fuentes (y lo que no se pudo verificar).
-- Pendientes: datos que faltan, herramientas que requieren código, variables por configurar en
-  Vercel.
-- Recordatorio: **la revisión por un profesional es responsabilidad del cliente** antes de
-  publicar; al aprobarse, se quita el marcador de revisión pendiente.
+- Resultado de la verificación final.
+- Pendientes que no bloquean la publicación: herramientas que requieren código y variables por
+  configurar en Vercel.

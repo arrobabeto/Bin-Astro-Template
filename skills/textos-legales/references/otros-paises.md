@@ -23,8 +23,7 @@ países), la skill investiga antes de redactar. **Nada se escribe sin fuente.**
    - Basta informar y permitir rechazar → `"opt-out"`.
    - Si la autoridad recomienda un plazo máximo para volver a preguntar, ponlo en
      `consent.renewal` y cítalo.
-5. **Incluye el checklist en el reporte final** con las fuentes, para que el abogado del cliente
-   lo revise.
+5. **Usa el checklist en la verificación final** y entrégalo en el reporte con sus fuentes.
 6. Si el país se repetirá en otros proyectos, propón guardarlo como `references/<pais>.md`.
 
 ## Puntos de partida (verifícalos siempre)

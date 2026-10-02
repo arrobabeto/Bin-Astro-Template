@@ -233,16 +233,17 @@ Estados: **estable** (probada, uso diario), **beta** (funciona, puede cambiar), 
 - **Casos de uso:** "necesito el aviso de privacidad", "agregamos el píxel de Meta, ajusta lo
   legal", "el cliente es de España", "el banner debe preguntar en cada visita".
 - **Cuándo no usarla:** para cambiar una palabra de un texto legal ya aprobado
-  (`editar-contenido`); para asesoría legal (no la sustituye).
+  (`editar-contenido`).
 - **Entradas:** país del responsable y respuestas de la entrevista; opcional textos legales
   previos del cliente.
-- **Salidas:** documentos en `src/content/legal/<idioma>/` con marcador de revisión pendiente,
+- **Salidas:** documentos en `src/content/legal/<idioma>/` listos para publicar tras la
+  verificación final (checklist del país, inventario, entrevista y `pnpm verify`),
   `legal.*` en `src/content/site/<idioma>.yaml`, `src/config/consent.ts`, enlaces del pie,
   inventario BSI y checklist del país con fuentes.
 - **Requisitos:** ninguno; las variables de píxeles se configuran en Vercel.
 - **Origen:** propia del template; LFPDPPP (DOF 20-03-2025) y leyes de cada país en fuentes
   oficiales.
-- **Estado:** beta · v1.0 · 2026-10-01.
+- **Estado:** beta · v1.1 · 2026-10-01.
 
 ### `construir-desde-figma`
 
