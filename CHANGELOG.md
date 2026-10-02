@@ -20,6 +20,10 @@ sitios que actualizan desde el template (ver
   de sección y los archivos de contenido son material de arranque que cada sitio sustituye
   (ADR 0009). Las skills `nueva-seccion` y `construir-desde-figma` ya no piden preferir los
   tipos existentes.
+- La skill `textos-legales` publica los documentos al pasar su verificación final (checklist
+  del país, inventario, entrevista y `pnpm verify`): ya no quedan como borrador con el marcador
+  `legal-revision-pendiente` ni `check:placeholders` avisa de él. Sin pasos manuales; si un
+  sitio conserva el marcador, puede borrarse.
 
 ### Agregado
 

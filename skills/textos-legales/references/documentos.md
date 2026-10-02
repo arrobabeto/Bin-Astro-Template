@@ -10,14 +10,11 @@ description: Cómo tratamos tus datos personales cuando visitas este sitio o nos
 updatedAt: 2026-10-01
 translationKey: privacidad
 ---
-
-<!-- bin-astro-template:legal-revision-pendiente -->
 ```
 
 - El nombre del archivo es la URL: `privacidad.md` → `/privacidad`.
-- El marcador `bin-astro-template:legal-revision-pendiente` indica que falta la revisión de un
-  profesional; `pnpm check:placeholders` avisa mientras exista. Lo quita la persona cuando su
-  abogado aprueba el texto, no el agente.
+- Sin marcadores de borrador: el documento se publica al pasar la verificación final de la
+  skill.
 - Con varios idiomas, cada traducción comparte `translationKey`.
 - Al crear o quitar un documento: enlázalo en `footer.links` de `src/content/site/<idioma>.yaml`
   y corre `pnpm bsi:sync`.

@@ -48,8 +48,7 @@ Pide solo lo que falte:
    o deja la sección fuera.
 5. **Fotos:** usa fotos reales en `src/assets/images/` con `alt` descriptivo.
 6. **Legales:** sigue la skill `textos-legales` (entrevista, documentos según el país y banner
-   de cookies). El marcador de revisión pendiente se quita **solo después** de que la persona
-   confirme que un profesional lo revisó.
+   de cookies). Se publican al pasar la verificación final de la skill.
 7. **Organización:** si es un negocio con local, cambia `organizationType` a `LocalBusiness`
    (o el subtipo) en `src/config/site.ts`.
 8. `pnpm bsi:sync` si cambiaron secciones.

@@ -4,9 +4,6 @@ Cada sitio necesita textos legales que describan lo que **realmente** hace con l
 visitantes. El template trae una referencia de ejemplo; la skill `textos-legales` la convierte en
 los documentos del cliente y configura el banner de cookies.
 
-> **No es asesoría legal.** Los documentos generados son un borrador bien fundamentado. Antes de
-> publicar, el cliente debe revisarlos con un profesional.
-
 ## Cómo pedirlo
 
 Pídele al agente, por ejemplo: _"Usa la skill textos-legales para crear el aviso de privacidad y
@@ -21,6 +18,9 @@ los textos legales del sitio"_. El agente:
    Personales en Posesión de los Particulares, 2025); para otros países investiga en fuentes
    oficiales y te entrega el checklist con enlaces.
 4. Escribe los documentos y configura el banner.
+5. Hace una verificación final: compara cada documento con los requisitos del país, con lo que
+   el sitio usa de verdad y con tus respuestas, y corre `pnpm verify`. Si todo está en orden,
+   los documentos se publican en el siguiente despliegue; no quedan como borrador.
 
 Si falta un dato (domicilio, correo de privacidad, plazo de conservación), el agente lo
 pregunta: no lo inventa.
@@ -36,10 +36,6 @@ pregunta: no lo inventa.
 | Aviso legal                  | `src/content/legal/<idioma>/aviso-legal.md`            | Si la ley lo exige (por ejemplo, España) |
 
 <!-- check:docs ejemplos: src/content/legal/es/cookies.md src/content/legal/es/aviso-legal.md -->
-
-Cada documento generado empieza con el marcador `bin-astro-template:legal-revision-pendiente`.
-Mientras exista, `pnpm check:placeholders` muestra un aviso (no bloquea). Cuando el abogado
-apruebe el texto, borra esa línea.
 
 ## Banner de cookies
 
