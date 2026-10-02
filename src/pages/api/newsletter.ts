@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro"
 
 import { formResponse } from "~/lib/api-response"
+import { logEnvProblems } from "~/lib/email"
 import { isBot, isEmail } from "~/lib/forms-config"
 import { isNewsletterConfigured, subscribe } from "~/lib/mailerlite"
 
@@ -20,6 +21,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   if (!isNewsletterConfigured()) {
+    logEnvProblems("newsletter")
     return formResponse(request, form, {
       success: false,
       status: 503,

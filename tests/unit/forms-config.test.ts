@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest"
 
 import {
+  diagnoseFormsEnv,
   isBot,
   isEmail,
   isValidWeb3FormsAccessKey,
@@ -112,5 +113,96 @@ describe("isEmail / isBot / safeRedirectPath", () => {
     expect(safeRedirectPath("https://malo.com")).toBe("/")
     expect(safeRedirectPath("//malo.com")).toBe("/")
     expect(safeRedirectPath(undefined, "/contacto")).toBe("/contacto")
+  })
+})
+
+describe("diagnoseFormsEnv: variables de formularios", () => {
+  const SENDGRID = {
+    PUBLIC_FORMS_PROVIDER: "sendgrid",
+    SENDGRID_API_KEY: "SG.clave",
+    MAIL_FROM_EMAIL: "web@ejemplo.mx",
+    MAIL_TO_EMAIL: "hola@ejemplo.mx",
+  }
+
+  it("sin variables, o con SendGrid completo, no hay problemas", () => {
+    expect(diagnoseFormsEnv({})).toEqual({ errors: [], warnings: [] })
+    expect(diagnoseFormsEnv(SENDGRID)).toEqual({ errors: [], warnings: [] })
+  })
+
+  it("detecta los nombres SENDGRID_* que el sitio no lee y dice a cuál renombrar", () => {
+    const { errors } = diagnoseFormsEnv({
+      PUBLIC_FORMS_PROVIDER: "sendgrid",
+      SENDGRID_API_KEY: "SG.clave",
+      SENDGRID_FROM_EMAIL: "web@ejemplo.mx",
+      SENDGRID_TO_EMAIL: "hola@ejemplo.mx",
+    })
+    expect(errors).toEqual([
+      "SENDGRID_FROM_EMAIL no la lee el sitio: renómbrala a MAIL_FROM_EMAIL.",
+      "SENDGRID_TO_EMAIL no la lee el sitio: renómbrala a MAIL_TO_EMAIL.",
+      "PUBLIC_FORMS_PROVIDER=sendgrid pero falta MAIL_FROM_EMAIL, MAIL_TO_EMAIL: el formulario de contacto no enviará correos.",
+    ])
+  })
+
+  it("nunca incluye valores en los mensajes", () => {
+    const { errors, warnings } = diagnoseFormsEnv({
+      SENDGRID_FROM_EMAIL: "secreto@ejemplo.mx",
+      MAIL_SECRET_THING: "valor-secreto",
+    })
+    expect([...errors, ...warnings].join(" ")).not.toMatch(/secreto/)
+  })
+
+  it("si el nombre correcto ya existe, el alias no es un error", () => {
+    const { errors } = diagnoseFormsEnv({
+      ...SENDGRID,
+      SENDGRID_FROM_EMAIL: "otro@ejemplo.mx",
+    })
+    expect(errors).toEqual([])
+  })
+
+  it("variables vacías o ajenas a formularios se ignoran", () => {
+    expect(
+      diagnoseFormsEnv({
+        SENDGRID_FROM_EMAIL: "",
+        HOME: "/Users/x",
+        PATH: "/bin",
+      }),
+    ).toEqual({ errors: [], warnings: [] })
+  })
+
+  it("avisa de variables de correo desconocidas", () => {
+    const { warnings } = diagnoseFormsEnv({ MAIL_REPLY_TO: "a@b.mx" })
+    expect(warnings[0]).toMatch(/^MAIL_REPLY_TO no la lee el sitio/)
+  })
+
+  it("SendGrid configurado pero proveedor apagado: avisa que no se usa", () => {
+    const { warnings } = diagnoseFormsEnv({
+      ...SENDGRID,
+      PUBLIC_FORMS_PROVIDER: "none",
+    })
+    expect(warnings).toEqual([
+      'Hay variables de SendGrid pero PUBLIC_FORMS_PROVIDER es "none": el formulario no las usa.',
+    ])
+  })
+
+  it("web3forms sin access key válida cae a mailto y lo dice", () => {
+    const { errors } = diagnoseFormsEnv({ PUBLIC_FORMS_PROVIDER: "web3forms" })
+    expect(errors[0]).toMatch(
+      /PUBLIC_WEB3FORMS_ACCESS_KEY falta o no es válida/,
+    )
+    expect(
+      diagnoseFormsEnv({
+        PUBLIC_FORMS_PROVIDER: "web3forms",
+        PUBLIC_WEB3FORMS_ACCESS_KEY: VALID_KEY,
+      }).errors,
+    ).toEqual([])
+  })
+
+  it("newsletter activado sin MailerLite es un error; la clave sin activar, un aviso", () => {
+    expect(
+      diagnoseFormsEnv({ PUBLIC_NEWSLETTER_ENABLED: "true" }).errors[0],
+    ).toMatch(/falta MAILERLITE_API_KEY/)
+    expect(
+      diagnoseFormsEnv({ MAILERLITE_API_KEY: "ml-clave" }).warnings[0],
+    ).toMatch(/newsletter está apagado/)
   })
 })

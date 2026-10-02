@@ -47,6 +47,10 @@ La clave de Web3Forms es pública por diseño: solo permite enviar a tu correo.
 El mensaje llega con "Responder a" apuntando al correo de quien escribió. Si falta alguna
 variable, el endpoint responde con un error claro en lugar de fallar en silencio.
 
+> **Los nombres importan.** El sitio solo lee `SENDGRID_API_KEY` y `MAIL_*`. Si copias el
+> `.env` de otro proyecto con nombres como `SENDGRID_FROM_EMAIL` o `SENDGRID_TO_EMAIL`, el
+> formulario no envía nada. Ver [Si los correos no llegan](#si-los-correos-no-llegan).
+
 ## Newsletter con MailerLite
 
 1. En MailerLite, crea una API key (Integrations → API) y, si quieres, un grupo.
@@ -78,5 +82,21 @@ sección no aparece.
 
 ## Probarlo
 
-- Local: `pnpm dev` y envía el formulario. Con `sendgrid` necesitas las variables en `.env`.
+- Local: `pnpm check:env` y después `pnpm dev`; envía el formulario. Con `sendgrid` necesitas
+  las variables en `.env`.
 - Producción: envía un mensaje real y confirma que llega (y que no cae en spam).
+
+## Si los correos no llegan
+
+1. **Revisa los nombres de las variables:** `pnpm check:env` lee `.env` y el entorno, y dice qué
+   variable falta o tiene un nombre que el sitio no lee (por ejemplo, "SENDGRID_FROM_EMAIL no
+   la lee el sitio: renómbrala a MAIL_FROM_EMAIL"). Nunca muestra valores.
+2. **Mira el log del build:** `astro dev` y `astro build` (también el build de Vercel) muestran el
+   mismo aviso. En Vercel: Deployments → el despliegue → Build Logs.
+3. **Mira el log de la función:** si alguien envía el formulario sin la configuración completa,
+   el endpoint responde con error y deja en Vercel (Logs, filtrando `/api/forms/contact` o
+   `/api/newsletter`) qué variable falta o está mal nombrada.
+4. **Después de corregir en Vercel, vuelve a desplegar.** Las variables `PUBLIC_*` se leen durante
+   el build, y un despliegue existente no toma variables nuevas.
+5. Si la configuración está bien y aun así no llega: revisa la actividad de SendGrid (Activity
+   Feed), la autenticación del dominio y la carpeta de spam.

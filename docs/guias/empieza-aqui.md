@@ -88,29 +88,30 @@ docs/                     Esta documentación
 `pnpm verify` corre todo en orden y se detiene en el primer error. CI (GitHub Actions) corre
 las mismas revisiones en cada pull request.
 
-| Revisión             | Qué comprueba                                                                     |
-| -------------------- | --------------------------------------------------------------------------------- |
-| `lint`               | Calidad del código y accesibilidad de los componentes                             |
-| `format:check`       | Formato uniforme (Prettier)                                                       |
-| `typecheck`          | Tipos de TypeScript y que el contenido cumpla sus schemas                         |
-| `check:node`         | Que Node y pnpm estén fijados igual en todos lados                                |
-| `check:placeholders` | Que no quede texto de relleno (lorem ipsum, TODO) ni datos del template           |
-| `check:docs`         | Que las rutas y enlaces citados en la documentación existan                       |
-| `check:assets`       | Que ninguna imagen sea demasiado pesada                                           |
-| `check:sections`     | Que cada tipo de sección esté completo: schema, componente, registro y marcadores |
-| `check:skills`       | Que las skills estén bien formadas y en el inventario                             |
-| `check:i18n`         | Que cada idioma activo tenga sus páginas y traducciones                           |
-| `check:site-url`     | Que el dominio de producción sea válido                                           |
-| `check:headers`      | Que las cabeceras de seguridad de `vercel.json` sean correctas                    |
-| `test`               | Pruebas unitarias y de coherencia entre código, documentación y CI                |
-| `test:integration`   | Casos de uso reales (bootstrap, nueva página, idioma, revisiones) en una copia    |
-| `build:ci`           | Build con un dominio de prueba                                                    |
-| `check:bsi`          | Que el inventario de Binflow coincida con el HTML publicado                       |
-| `check:seo`          | Títulos, descripciones, H1, canonical, hreflang, imágenes, enlaces, sitemap…      |
-| `check:redirects`    | Que las redirecciones sean 301 reales y sin cadenas                               |
-| `check:no-localhost` | Que no quede ningún `localhost` en el sitio publicado                             |
-| `check:leakage`      | Que ninguna clave secreta termine en el código o en el sitio                      |
-| `test:e2e`           | Pruebas en navegador (escritorio y móvil) e historias de visitante                |
+| Revisión             | Qué comprueba                                                                         |
+| -------------------- | ------------------------------------------------------------------------------------- |
+| `lint`               | Calidad del código y accesibilidad de los componentes                                 |
+| `format:check`       | Formato uniforme (Prettier)                                                           |
+| `typecheck`          | Tipos de TypeScript y que el contenido cumpla sus schemas                             |
+| `check:node`         | Que Node y pnpm estén fijados igual en todos lados                                    |
+| `check:env`          | Que las variables de formularios y correo tengan el nombre correcto y estén completas |
+| `check:placeholders` | Que no quede texto de relleno (lorem ipsum, TODO) ni datos del template               |
+| `check:docs`         | Que las rutas y enlaces citados en la documentación existan                           |
+| `check:assets`       | Que ninguna imagen sea demasiado pesada                                               |
+| `check:sections`     | Que cada tipo de sección esté completo: schema, componente, registro y marcadores     |
+| `check:skills`       | Que las skills estén bien formadas y en el inventario                                 |
+| `check:i18n`         | Que cada idioma activo tenga sus páginas y traducciones                               |
+| `check:site-url`     | Que el dominio de producción sea válido                                               |
+| `check:headers`      | Que las cabeceras de seguridad de `vercel.json` sean correctas                        |
+| `test`               | Pruebas unitarias y de coherencia entre código, documentación y CI                    |
+| `test:integration`   | Casos de uso reales (bootstrap, nueva página, idioma, revisiones) en una copia        |
+| `build:ci`           | Build con un dominio de prueba                                                        |
+| `check:bsi`          | Que el inventario de Binflow coincida con el HTML publicado                           |
+| `check:seo`          | Títulos, descripciones, H1, canonical, hreflang, imágenes, enlaces, sitemap…          |
+| `check:redirects`    | Que las redirecciones sean 301 reales y sin cadenas                                   |
+| `check:no-localhost` | Que no quede ningún `localhost` en el sitio publicado                                 |
+| `check:leakage`      | Que ninguna clave secreta termine en el código o en el sitio                          |
+| `test:e2e`           | Pruebas en navegador (escritorio y móvil) e historias de visitante                    |
 
 `check:headers` y `check:no-localhost` también revisan un sitio ya publicado:
 `pnpm check:headers --live https://www.ejemplo.mx`.

@@ -169,3 +169,38 @@ describe("Protecciones de documentación y skills", () => {
     expect(result.output).toMatch(/hallmark/)
   })
 })
+
+describe("Historia: copio el .env de otro sitio con nombres SENDGRID_*", () => {
+  const ENV = [
+    "PUBLIC_FORMS_PROVIDER=sendgrid",
+    "SENDGRID_API_KEY=SG.clave-de-prueba",
+    "SENDGRID_FROM_EMAIL=web@ejemplo.mx",
+    "SENDGRID_TO_EMAIL=hola@ejemplo.mx",
+  ].join("\n")
+
+  it("check:env dice qué renombrar y el build avisa sin detenerse", () => {
+    ws.write(".env", ENV)
+
+    const check = ws.run("scripts/check-env.mjs")
+    expect(check.status).not.toBe(0)
+    expect(check.output).toContain(
+      "SENDGRID_FROM_EMAIL no la lee el sitio: renómbrala a MAIL_FROM_EMAIL",
+    )
+    expect(check.output).toContain("renómbrala a MAIL_TO_EMAIL")
+    expect(check.output).not.toContain("SG.clave-de-prueba")
+
+    const build = ws.build()
+    expect(build.status, build.output).toBe(0)
+    expect(build.output).toContain("renómbrala a MAIL_FROM_EMAIL")
+    expect(build.output).not.toContain("SG.clave-de-prueba")
+
+    ws.write(
+      ".env",
+      ENV.replace("SENDGRID_FROM_EMAIL", "MAIL_FROM_EMAIL").replace(
+        "SENDGRID_TO_EMAIL",
+        "MAIL_TO_EMAIL",
+      ),
+    )
+    expect(ws.run("scripts/check-env.mjs").status).toBe(0)
+  })
+})
