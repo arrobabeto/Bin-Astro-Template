@@ -42,6 +42,12 @@ concreto (dominio, medición, formularios). La lista completa y comentada está 
 Los IDs de GTM, GA4 y Search Console se validan con su formato: un valor mal copiado se ignora
 en lugar de romper la página.
 
+Usa **exactamente** estos nombres. Una variable con otro nombre (por ejemplo
+`SENDGRID_FROM_EMAIL` en lugar de `MAIL_FROM_EMAIL`) no la lee nadie, y el formulario deja de
+enviar. `pnpm check:env` (incluido en `pnpm verify`) y el log del build detectan los nombres de
+formularios y correo que no corresponden, y dicen a cuál renombrar. Ver
+[Si los correos no llegan](formularios-y-email.md#si-los-correos-no-llegan).
+
 ## El dominio (`PUBLIC_SITE_URL`)
 
 Define las URLs absolutas: canonical, sitemap, Open Graph, `hreflang` y JSON-LD. Se resuelve en

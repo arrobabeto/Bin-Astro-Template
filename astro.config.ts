@@ -6,6 +6,7 @@ import { parseEnv } from "node:util"
 
 import { redirects } from "./src/config/redirects"
 import { productionSiteUrlError, resolveSiteUrl } from "./src/config/site-url"
+import { diagnoseFormsEnv } from "./src/lib/forms-config"
 
 // `astro:env` no existe en este archivo; el .env se carga a mano.
 const env: Record<string, string | undefined> = {
@@ -39,6 +40,21 @@ export default defineConfig({
   adapter: vercel(),
   trailingSlash: "never",
   redirects,
+
+  // Avisa en `astro dev` y en el log de build (también en Vercel) si las
+  // variables de formularios tienen otro nombre o están incompletas. No
+  // detiene el build: ninguna variable es obligatoria.
+  integrations: [
+    {
+      name: "diagnostico-variables",
+      hooks: {
+        "astro:config:done": ({ logger }) => {
+          const { errors, warnings } = diagnoseFormsEnv(env)
+          for (const message of [...errors, ...warnings]) logger.warn(message)
+        },
+      },
+    },
+  ],
 
   vite: { plugins: [tailwindcss()] },
 

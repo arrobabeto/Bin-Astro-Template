@@ -7,6 +7,16 @@ sitios que actualizan desde el template (ver
 
 ## [Sin publicar]
 
+### Corregido
+
+- Los formularios ya no fallan sin explicación cuando una variable tiene otro nombre (por
+  ejemplo `SENDGRID_FROM_EMAIL` en lugar de `MAIL_FROM_EMAIL`) o falta: `pnpm check:env`
+  (incluido en `verify`), el log de `astro dev`/`astro build` y el log de la función en Vercel
+  dicen qué variable renombrar o agregar, sin mostrar valores (ver
+  [Si los correos no llegan](docs/guias/formularios-y-email.md#si-los-correos-no-llegan)).
+  **Paso manual** para sitios que actualicen: corran `pnpm check:env` y revisen los nombres de
+  las variables en Vercel.
+
 ### Cambiado
 
 - Dependencias al día (Prettier para Astro 1.x, `sharp`, `jsdom`, `globals`, acciones de

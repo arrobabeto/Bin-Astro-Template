@@ -141,6 +141,27 @@ describe("Caso de uso: un visitante envía el formulario de contacto (SendGrid)"
     expect(fetchMock).not.toHaveBeenCalled()
   })
 
+  it("con una variable mal nombrada, el log de Vercel dice cuál renombrar (sin valores)", async () => {
+    env.MAIL_FROM_EMAIL = undefined
+    vi.stubEnv("PUBLIC_FORMS_PROVIDER", "sendgrid")
+    vi.stubEnv("SENDGRID_API_KEY", "SG.clave-de-prueba")
+    vi.stubEnv("MAIL_TO_EMAIL", "hola@ejemplo.mx")
+    vi.stubEnv("SENDGRID_FROM_EMAIL", "web@ejemplo.mx")
+
+    try {
+      const response = await contact(post(VALID))
+      expect(response.status).toBe(503)
+      const logged = vi.mocked(console.error).mock.calls.flat().join(" ")
+      expect(logged).toContain(
+        "SENDGRID_FROM_EMAIL no la lee el sitio: renómbrala a MAIL_FROM_EMAIL",
+      )
+      expect(logged).not.toContain("SG.clave-de-prueba")
+      expect(logged).not.toContain("web@ejemplo.mx")
+    } finally {
+      vi.unstubAllEnvs()
+    }
+  })
+
   it("si SendGrid falla responde 502", async () => {
     fetchMock.mockResolvedValue(new Response("error", { status: 401 }))
 

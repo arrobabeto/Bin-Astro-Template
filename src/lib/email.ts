@@ -10,6 +10,23 @@ import {
   SENDGRID_API_KEY,
 } from "astro:env/server"
 
+import { diagnoseFormsEnv } from "./forms-config"
+
+/**
+ * Deja en los logs de Vercel por qué no se envió (solo nombres de variables,
+ * nunca valores). Lo usan los endpoints cuando falta configuración.
+ */
+export function logEnvProblems(scope: string): void {
+  const { errors, warnings } = diagnoseFormsEnv(process.env)
+  const problems = [...errors, ...warnings]
+  console.error(
+    `[${scope}] Configuración incompleta.`,
+    problems.length > 0
+      ? problems.join(" ")
+      : "Revisa las variables en Vercel (docs/guias/formularios-y-email.md).",
+  )
+}
+
 export type EmailMessage = {
   replyTo?: string
   subject: string

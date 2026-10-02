@@ -33,6 +33,7 @@
     "seo:extract": "node scripts/seo-extract.mjs",
     "check:node": "node scripts/check-node-pin.mjs",
     "check:leakage": "node scripts/check-key-leakage.mjs",
+    "check:env": "node scripts/check-env.mjs",
     "check:placeholders": "node scripts/check-content-placeholders.mjs",
     "check:docs": "node scripts/check-doc-references.mjs",
     "check:assets": "node scripts/check-asset-budget.mjs",
@@ -46,7 +47,7 @@
     "check:no-localhost": "node scripts/check-no-localhost.mjs",
     "check:headers": "node scripts/check-headers.mjs",
     "build:ci": "node scripts/build-ci.mjs",
-    "check:source": "pnpm run check:node && pnpm run check:placeholders && pnpm run check:docs && pnpm run check:assets && pnpm run check:sections && pnpm run check:skills && pnpm run check:i18n && pnpm run check:site-url && pnpm run check:headers",
+    "check:source": "pnpm run check:node && pnpm run check:env && pnpm run check:placeholders && pnpm run check:docs && pnpm run check:assets && pnpm run check:sections && pnpm run check:skills && pnpm run check:i18n && pnpm run check:site-url && pnpm run check:headers",
     "check:dist": "pnpm run check:bsi && pnpm run check:seo && pnpm run check:redirects && pnpm run check:no-localhost && pnpm run check:leakage",
     "verify": "pnpm run lint && pnpm run format:check && pnpm run typecheck && pnpm run check:source && pnpm run test && pnpm run test:integration && pnpm run build:ci && pnpm run check:dist && pnpm run test:e2e"
   },

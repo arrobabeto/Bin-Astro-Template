@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro"
 
 import { formResponse } from "~/lib/api-response"
-import { isEmailConfigured, sendEmail } from "~/lib/email"
+import { isEmailConfigured, logEnvProblems, sendEmail } from "~/lib/email"
 import { isBot, validateContact } from "~/lib/forms-config"
 
 /** Vercel Function: solo se usa con PUBLIC_FORMS_PROVIDER=sendgrid. */
@@ -22,6 +22,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   if (!isEmailConfigured()) {
+    logEnvProblems("forms:contact")
     return formResponse(request, form, {
       success: false,
       status: 503,
