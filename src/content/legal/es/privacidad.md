@@ -4,7 +4,7 @@ description: Cómo recabamos, usamos y protegemos tus datos personales cuando vi
 updatedAt: 2026-09-28
 ---
 
-> **Plantilla de referencia.** Este texto es un punto de partida y no constituye asesoría legal. Antes de publicar el sitio, revísalo con un profesional y ajústalo a la legislación que te aplique (por ejemplo, la Ley Federal de Protección de Datos Personales en Posesión de los Particulares en México o el RGPD en la Unión Europea).
+> **Plantilla de referencia.** Este texto es un punto de partida. Antes de publicar el sitio, créalo con la skill `textos-legales`, que lo ajusta a la legislación que te aplique (por ejemplo, la Ley Federal de Protección de Datos Personales en Posesión de los Particulares en México o el RGPD en la Unión Europea).
 
 ## Responsable
 

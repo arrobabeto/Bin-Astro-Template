@@ -4,7 +4,7 @@ description: Condiciones de uso de este sitio web y de la información que se pu
 updatedAt: 2026-09-28
 ---
 
-> **Plantilla de referencia.** Este texto es un punto de partida y no constituye asesoría legal. Revísalo con un profesional antes de publicar el sitio.
+> **Plantilla de referencia.** Este texto es un punto de partida. Antes de publicar el sitio, créalo con la skill `textos-legales`.
 
 ## Uso del sitio
 

@@ -100,4 +100,3 @@ cancelaciones, y medios de contacto. Texto vigente:
 ## Lo que la skill no hace
 
 - No define si el cliente debe registrarse ante alguna autoridad ni redacta contratos.
-- No sustituye la revisión de un abogado: el reporte final lo recuerda.

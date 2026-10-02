@@ -42,4 +42,5 @@ decisiones que no se recuerdan, sin forma de cambiar de opinión).
   cargarse desde GTM con las señales de Consent Mode.
 - La CSP de `vercel.json` incluye los dominios de los píxeles soportados.
 - El banner no convierte el sitio en "cumplidor" por sí solo: los textos legales deben
-  describir lo que el sitio usa y pasar revisión profesional.
+  describir lo que el sitio usa (lo comprueba la verificación final de la skill
+  `textos-legales`).
