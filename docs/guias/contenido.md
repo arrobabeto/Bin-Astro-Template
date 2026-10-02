@@ -107,7 +107,9 @@ Texto en Markdown normal…
 
 Los que trae el template son una referencia genérica con el aviso "Plantilla de referencia".
 Cada sitio los sustituye por los de su responsable, revisados legalmente;
-`pnpm check:placeholders` impide publicarlos con el aviso en un sitio de cliente.
+`pnpm check:placeholders` impide publicarlos con el aviso en un sitio de cliente. La skill
+`textos-legales` los redacta a partir de una entrevista y de lo que el sitio usa (ver
+[Textos legales y cookies](textos-legales.md)).
 
 ## Textos globales (`site/es.yaml`)
 

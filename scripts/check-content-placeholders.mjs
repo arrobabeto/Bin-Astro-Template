@@ -7,6 +7,8 @@
  *    teléfono, nombre del template, aviso legal sin revisar, portada demo o
  *    provisional) y advierte si un
  *    archivo demo sigue sin cambios. Así ningún sitio sale con datos demo.
+ *    Advierte (sin fallar) de textos legales con revisión profesional
+ *    pendiente (skill textos-legales).
  */
 import fs from "node:fs"
 import path from "node:path"
@@ -49,13 +51,27 @@ const files = TARGETS.flatMap((target) =>
     : walk(target),
 ).filter((file) => TEXT.test(file))
 
+const SITE_WARNINGS = [
+  {
+    label:
+      "texto legal pendiente de revisión profesional (quita el marcador cuando se apruebe)",
+    regex: /bin-astro-template:legal-revision-pendiente/,
+  },
+]
+
 const rules = isSite ? [...ALWAYS, ...TEMPLATE_MARKERS] : ALWAYS
+const warnings = isSite ? SITE_WARNINGS : []
 for (const file of files) {
   const lines = fs.readFileSync(file, "utf8").split("\n")
   lines.forEach((line, index) => {
     for (const { label, regex } of rules) {
       if (regex.test(line)) {
         r.fail(`${path.normalize(file)}:${index + 1}: ${label}`)
+      }
+    }
+    for (const { label, regex } of warnings) {
+      if (regex.test(line)) {
+        r.warn(`${path.normalize(file)}:${index + 1}: ${label}`)
       }
     }
   })

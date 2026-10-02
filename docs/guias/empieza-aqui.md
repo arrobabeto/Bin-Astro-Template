@@ -56,6 +56,7 @@ existe para que el build y las revisiones tengan algo que validar; tras `pnpm bo
 | Configurar el dominio y otras variables                | [Variables de entorno](variables-de-entorno.md)              |
 | Activar el formulario de contacto o newsletter         | [Formularios y email](formularios-y-email.md)                |
 | Medir visitas (Analytics, Tag Manager, Search Console) | [Analytics](analytics.md)                                    |
+| Crear el aviso de privacidad y el banner de cookies    | [Textos legales y cookies](textos-legales.md)                |
 | Entender y mejorar el SEO                              | [SEO](seo.md)                                                |
 | Hacer el sitio bilingüe                                | [Idiomas](idiomas.md)                                        |
 | Conectar el sitio a Binflow                            | [Binflow](binflow.md)                                        |

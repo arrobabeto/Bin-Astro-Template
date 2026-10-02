@@ -1,0 +1,125 @@
+---
+/**
+ * Banner de cookies y carga de etiquetas. Sin rastreo configurado no se
+ * renderiza nada (ni JavaScript). Con consent.mode "off" solo carga las
+ * etiquetas, sin banner. Ver docs/guias/textos-legales.md
+ */
+import { type Locale } from "~/config/locales"
+import { t } from "~/i18n/ui"
+import { bf } from "~/lib/bf"
+import {
+  hasTrackers,
+  showConsentBanner,
+  trackingConfig,
+  usesAnalytics,
+  usesMarketing,
+} from "~/lib/analytics"
+import type { SiteChrome } from "~/lib/routes"
+
+interface Props {
+  chrome: SiteChrome
+  locale: Locale
+}
+
+const { chrome, locale } = Astro.props
+const policyHref = chrome.legal?.cookiesHref ?? chrome.privacyHref
+const checkbox = "accent-brand-600 mt-1 size-4 shrink-0"
+---
+
+{hasTrackers && (
+  <div data-consent-config={JSON.stringify(trackingConfig)} hidden />
+)}
+{showConsentBanner && (
+  <section
+    data-consent-banner
+    hidden
+    role="dialog"
+    aria-labelledby="consent-title"
+    class="border-line bg-surface text-ink fixed inset-x-4 bottom-4 z-50 mx-auto max-w-xl rounded-2xl border p-6 shadow-xl"
+  >
+    <h2 id="consent-title" class="text-base font-semibold">
+      {t(locale, "consent.title")}
+    </h2>
+    <p class="text-muted mt-2 text-sm">
+      {chrome.legal?.cookieBanner ? (
+        <span {...bf("chrome", "legal", "cookieBanner", "copy")}>
+          {chrome.legal.cookieBanner}
+        </span>
+      ) : (
+        t(locale, "consent.body")
+      )}{" "}
+      <a href={policyHref} class="underline underline-offset-2">
+        {t(
+          locale,
+          chrome.legal?.cookiesHref
+            ? "consent.policyLink"
+            : "consent.privacyLink",
+        )}
+      </a>
+      .
+    </p>
+    <details class="mt-4 text-sm">
+      <summary class="cursor-pointer font-medium">
+        {t(locale, "consent.customize")}
+      </summary>
+      <div class="mt-3 flex flex-col gap-3">
+        {usesAnalytics && (
+          <div class="flex gap-3">
+            <input
+              type="checkbox"
+              id="consent-analytics"
+              name="consent-analytics"
+              class={checkbox}
+            />
+            <label for="consent-analytics">
+              <span class="font-medium">{t(locale, "consent.analytics")}</span>
+              <span class="text-muted block">
+                {t(locale, "consent.analyticsHelp")}
+              </span>
+            </label>
+          </div>
+        )}
+        {usesMarketing && (
+          <div class="flex gap-3">
+            <input
+              type="checkbox"
+              id="consent-marketing"
+              name="consent-marketing"
+              class={checkbox}
+            />
+            <label for="consent-marketing">
+              <span class="font-medium">{t(locale, "consent.marketing")}</span>
+              <span class="text-muted block">
+                {t(locale, "consent.marketingHelp")}
+              </span>
+            </label>
+          </div>
+        )}
+        <button
+          type="button"
+          data-consent-action="save"
+          class="border-line hover:bg-surface-muted self-start rounded-full border px-5 py-2 font-semibold"
+        >
+          {t(locale, "consent.save")}
+        </button>
+      </div>
+    </details>
+    <div class="mt-5 flex flex-col gap-2 sm:flex-row">
+      <button
+        type="button"
+        data-consent-action="reject"
+        class="border-line hover:bg-surface-muted rounded-full border px-5 py-2 text-sm font-semibold"
+      >
+        {t(locale, "consent.reject")}
+      </button>
+      <button
+        type="button"
+        data-consent-action="accept"
+        class="bg-brand-600 hover:bg-brand-700 rounded-full px-5 py-2 text-sm font-semibold text-white"
+      >
+        {t(locale, "consent.accept")}
+      </button>
+    </div>
+  </section>
+)}
+{hasTrackers && <script src="../../scripts/consent.ts"></script>}

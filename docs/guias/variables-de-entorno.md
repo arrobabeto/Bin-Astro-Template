@@ -23,6 +23,9 @@ concreto (dominio, medición, formularios). La lista completa y comentada está 
 | `NOINDEX`                     | build   | `true` pone todo el sitio en `noindex` (sitio en construcción) | [SEO](seo.md)                         |
 | `PUBLIC_GTM_ID`               | pública | Google Tag Manager (`GTM-XXXXXXX`)                             | [Analytics](analytics.md)             |
 | `PUBLIC_GA4_ID`               | pública | Google Analytics 4 (`G-XXXXXXXXXX`), solo si no usas GTM       | [Analytics](analytics.md)             |
+| `PUBLIC_GOOGLE_ADS_ID`        | pública | Google Ads (`AW-XXXXXXXXXX`), solo si no usas GTM              | [Analytics](analytics.md)             |
+| `PUBLIC_META_PIXEL_ID`        | pública | Píxel de Meta (Facebook/Instagram), número de 10 a 20 dígitos  | [Analytics](analytics.md)             |
+| `PUBLIC_TIKTOK_PIXEL_ID`      | pública | Píxel de TikTok (código en mayúsculas)                         | [Analytics](analytics.md)             |
 | `PUBLIC_GSC_VERIFICATION`     | pública | Verificación de Search Console por meta etiqueta               | [Analytics](analytics.md)             |
 | `PUBLIC_FORMS_PROVIDER`       | pública | `none`, `web3forms` o `sendgrid`                               | [Formularios](formularios-y-email.md) |
 | `PUBLIC_WEB3FORMS_ACCESS_KEY` | pública | Clave de Web3Forms                                             | [Formularios](formularios-y-email.md) |

@@ -98,6 +98,17 @@ const siteChrome = defineCollection({
       social: z.array(linkSchema).default([]),
       /** Ruta del aviso de privacidad (se enlaza desde los formularios). */
       privacyHref: z.string().startsWith("/"),
+      /** Textos legales de interfaz editables (skill textos-legales). */
+      legal: z
+        .object({
+          /** Aviso de privacidad simplificado bajo los formularios. */
+          formNotice: z.string().trim().min(1).optional(),
+          /** Texto del banner de cookies (si no, uno genérico de src/i18n/ui.ts). */
+          cookieBanner: z.string().trim().min(1).optional(),
+          /** Ruta de la política de cookies (si no, se usa privacyHref). */
+          cookiesHref: z.string().startsWith("/").optional(),
+        })
+        .optional(),
       /** Página de agradecimiento tras enviar un formulario sin JavaScript. */
       thankYouHref: z.string().startsWith("/"),
     }),

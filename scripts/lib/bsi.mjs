@@ -30,6 +30,10 @@ export const KINDS = new Set([
 /** Secciones que pueden no renderizarse según variables de entorno. */
 export const CONDITIONAL_SECTIONS = {
   newsletter: "Solo se renderiza con PUBLIC_NEWSLETTER_ENABLED=true.",
+  formNotice:
+    "Solo se renderiza si hay un formulario activo (PUBLIC_FORMS_PROVIDER o PUBLIC_NEWSLETTER_ENABLED).",
+  cookieBanner:
+    "Solo se renderiza si hay medición o píxeles configurados y src/config/consent.ts no está en off.",
 }
 
 const DENY_REASON = "Etiqueta o URL de CTA: es chrome, no texto editable."
@@ -222,8 +226,35 @@ function chromeRows(file) {
       sample: sampleOf(data.footer?.tagline),
       notes: "Componente: src/components/layout/Footer.astro",
     },
+    ...LEGAL_CHROME_FIELDS.filter(({ field }) => data.legal?.[field]).map(
+      ({ field, component }) => ({
+        bf_id: `chrome.legal.${field}`,
+        kind: "copy",
+        area: "chrome",
+        section: "legal",
+        path: file,
+        locator: `github:${file}#legal.${field}`,
+        locales: [locale],
+        publication_target: PUBLICATION_TARGET,
+        sample: sampleOf(data.legal[field]),
+        notes: `Componente: ${component} ${CONDITIONAL_SECTIONS[field]}`,
+        conditional: true,
+      }),
+    ),
   ]
 }
+
+/** Textos legales de interfaz en src/content/site/<idioma>.yaml (legal.*). */
+const LEGAL_CHROME_FIELDS = [
+  {
+    field: "formNotice",
+    component: "src/components/forms/PrivacyNotice.astro",
+  },
+  {
+    field: "cookieBanner",
+    component: "src/components/analytics/ConsentBanner.astro",
+  },
+]
 
 /** Une filas iguales de distintos idiomas en una sola con {locale}. */
 function mergeLocales(rows) {

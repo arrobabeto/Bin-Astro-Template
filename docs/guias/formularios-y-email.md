@@ -67,7 +67,9 @@ sección no aparece.
   no darles pistas.
 - **Validación:** nombre, correo y mensaje obligatorios, con límites de longitud, en el
   navegador y en el servidor.
-- **Privacidad:** el formulario enlaza el aviso de privacidad (`privacyHref`).
+- **Privacidad:** debajo del formulario se muestra el aviso simplificado (`legal.formNotice` en
+  `src/content/site/<idioma>.yaml`, o un texto genérico si no existe) con el enlace al aviso de
+  privacidad (`privacyHref`). Ver [Textos legales y cookies](textos-legales.md).
 - **Secretos:** las API keys solo existen en el servidor (`astro:env/server`). ESLint impide
   importarlas en componentes y `pnpm check:leakage` comprueba que no terminen en el sitio ni
   en Git.
