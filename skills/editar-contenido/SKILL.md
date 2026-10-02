@@ -39,7 +39,9 @@ La página `index.yaml` es la home (`/`); `servicios.yaml` sería `/servicios`.
    - Enlaces internos sin barra final: `/servicios`, no `/servicios/`.
 4. **Imágenes:** copia el archivo a `src/assets/images/` con nombre en minúsculas y guiones,
    ancho ≥ 1600 px para hero (JPG/PNG/WebP; Astro genera versiones optimizadas). Actualiza
-   `src` (ruta relativa desde el YAML) y escribe un `alt` que describa lo que se ve.
+   `src` (ruta relativa desde el YAML) y escribe un `alt` que describa lo que se ve. Para
+   reducir el peso usa la skill `optimizar-imagenes`; para el nombre, el `alt` y el `caption`,
+   `seo-imagenes`.
 5. **Secciones:**
    - Cambiar texto: no cambies el `id`.
    - Agregar una sección: usa un tipo existente y un `id` nuevo en kebab-case, único en la página.

@@ -5,6 +5,7 @@ import "~/styles/global.css"
 import type { ImageMetadata } from "astro"
 
 import AnalyticsNoscript from "~/components/analytics/AnalyticsNoscript.astro"
+import ConsentBanner from "~/components/analytics/ConsentBanner.astro"
 import Footer from "~/components/layout/Footer.astro"
 import Header from "~/components/layout/Header.astro"
 import BaseHead from "~/components/seo/BaseHead.astro"
@@ -95,5 +96,6 @@ const jsonLd = graph([
       <slot />
     </main>
     <Footer chrome={chrome} locale={locale} />
+    <ConsentBanner chrome={chrome} locale={locale} />
   </body>
 </html>

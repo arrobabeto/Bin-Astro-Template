@@ -1,5 +1,6 @@
 ---
 import FormEnhancer from "~/components/forms/FormEnhancer.astro"
+import PrivacyNotice from "~/components/forms/PrivacyNotice.astro"
 import Heading from "~/components/ui/Heading.astro"
 import { t } from "~/i18n/ui"
 import { bf } from "~/lib/bf"
@@ -133,13 +134,7 @@ const inputClass =
           />
         </label>
 
-        <p class="text-muted text-xs">
-          {t(locale, "form.privacyNotice")}{" "}
-          <a href={chrome.privacyHref} class="underline underline-offset-2">
-            {t(locale, "form.privacyLink")}
-          </a>
-          .
-        </p>
+        <PrivacyNotice chrome={chrome} locale={locale} />
 
         <button
           type="submit"

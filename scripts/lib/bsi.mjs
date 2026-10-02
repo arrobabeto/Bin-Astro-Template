@@ -9,7 +9,10 @@ import path from "node:path"
 import YAML from "yaml"
 
 import { DEFAULT_LOCALE, ENABLED_LOCALES } from "../../src/config/locales.ts"
-import { SECTION_BSI_FIELDS } from "../../src/lib/bsi-fields.ts"
+import {
+  NESTED_BSI_FIELDS,
+  SECTION_BSI_FIELDS,
+} from "../../src/lib/bsi-fields.ts"
 
 export const INVENTORY_PATH = "binflow/surface-inventory.yaml"
 export const PUBLICATION_TARGET = "github_content"
@@ -27,6 +30,10 @@ export const KINDS = new Set([
 /** Secciones que pueden no renderizarse según variables de entorno. */
 export const CONDITIONAL_SECTIONS = {
   newsletter: "Solo se renderiza con PUBLIC_NEWSLETTER_ENABLED=true.",
+  formNotice:
+    "Solo se renderiza si hay un formulario activo (PUBLIC_FORMS_PROVIDER o PUBLIC_NEWSLETTER_ENABLED).",
+  cookieBanner:
+    "Solo se renderiza si hay medición o píxeles configurados y src/config/consent.ts no está en off.",
 }
 
 const DENY_REASON = "Etiqueta o URL de CTA: es chrome, no texto editable."
@@ -80,7 +87,11 @@ function pageRows(file) {
     const fields = SECTION_BSI_FIELDS[section.type]
     if (!fields) continue
     for (const [field, kind] of Object.entries(fields)) {
-      const value = field === "shell" ? section : section[field]
+      const fieldPath = NESTED_BSI_FIELDS[field] ?? field
+      const value =
+        field === "shell"
+          ? section
+          : fieldPath.split(".").reduce((node, key) => node?.[key], section)
       if (value === undefined || value === null) continue
       const pointer = `sections.${section.id}`
       const row = {
@@ -94,7 +105,7 @@ function pageRows(file) {
             ? `github:${file}#${pointer}`
             : kind === "image"
               ? `github:${file}#${pointer}.${field}.src`
-              : `github:${file}#${pointer}.${field}`,
+              : `github:${file}#${pointer}.${fieldPath}`,
         locales: [locale],
         publication_target: PUBLICATION_TARGET,
         sample: field === "shell" ? "" : sampleOf(value),
@@ -215,8 +226,35 @@ function chromeRows(file) {
       sample: sampleOf(data.footer?.tagline),
       notes: "Componente: src/components/layout/Footer.astro",
     },
+    ...LEGAL_CHROME_FIELDS.filter(({ field }) => data.legal?.[field]).map(
+      ({ field, component }) => ({
+        bf_id: `chrome.legal.${field}`,
+        kind: "copy",
+        area: "chrome",
+        section: "legal",
+        path: file,
+        locator: `github:${file}#legal.${field}`,
+        locales: [locale],
+        publication_target: PUBLICATION_TARGET,
+        sample: sampleOf(data.legal[field]),
+        notes: `Componente: ${component} ${CONDITIONAL_SECTIONS[field]}`,
+        conditional: true,
+      }),
+    ),
   ]
 }
+
+/** Textos legales de interfaz en src/content/site/<idioma>.yaml (legal.*). */
+const LEGAL_CHROME_FIELDS = [
+  {
+    field: "formNotice",
+    component: "src/components/forms/PrivacyNotice.astro",
+  },
+  {
+    field: "cookieBanner",
+    component: "src/components/analytics/ConsentBanner.astro",
+  },
+]
 
 /** Une filas iguales de distintos idiomas en una sola con {locale}. */
 function mergeLocales(rows) {

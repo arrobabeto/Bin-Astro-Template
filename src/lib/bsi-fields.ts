@@ -30,6 +30,7 @@ export const SECTION_BSI_FIELDS = {
     heading: "style_target",
     body: "copy",
     image: "image",
+    caption: "copy",
     cta: "chrome_denied",
     secondaryCta: "chrome_denied",
   },
@@ -45,6 +46,7 @@ export const SECTION_BSI_FIELDS = {
     heading: "style_target",
     body: "copy",
     image: "image",
+    caption: "copy",
     cta: "chrome_denied",
   },
   cta: {
@@ -76,3 +78,11 @@ export const SECTION_BSI_FIELDS = {
 } as const satisfies Record<string, Record<string, BfKind>>
 
 export type SectionType = keyof typeof SECTION_BSI_FIELDS
+
+/**
+ * Campos BSI que viven anidados en el YAML: el pie de foto se escribe junto a
+ * su imagen (`image.caption`), no al nivel de la sección.
+ */
+export const NESTED_BSI_FIELDS = {
+  caption: "image.caption",
+} as const satisfies Record<string, string>

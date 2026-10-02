@@ -44,6 +44,7 @@ y `.agents/skills`). Antes de una tarea, revisa si hay una skill para ella y sí
 | Tarea                                          | Skill                                               |
 | ---------------------------------------------- | --------------------------------------------------- |
 | Cambiar textos, imágenes, menú, contacto       | `editar-contenido`                                  |
+| Aviso de privacidad, términos y cookies        | `textos-legales`                                    |
 | Auditar o corregir SEO                         | `seo-audit`                                         |
 | Crear el sitio de un cliente desde el template | `nuevo-sitio`                                       |
 | Crear el home / empezar el diseño del sitio    | `disenar-sitio` (borra la portada demo)             |
@@ -52,6 +53,8 @@ y `.agents/skills`). Antes de una tarea, revisa si hay una skill para ella y sí
 | Agregar un idioma                              | `agregar-idioma`                                    |
 | Mantener el inventario de Binflow              | `bsi-sync`                                          |
 | Publicar un artículo de blog                   | `publicar-articulo`                                 |
+| Optimizar el peso de imágenes                  | `optimizar-imagenes`                                |
+| Nombres, alt y caption de imágenes (SEO)       | `seo-imagenes`                                      |
 | Implementar un diseño de Figma                 | `construir-desde-figma`, `figma-rest-design-reader` |
 | Diseño visual con criterio                     | `hallmark`                                          |
 
@@ -78,7 +81,8 @@ Detalle de cada una: [skills/INVENTARIO.md](skills/INVENTARIO.md).
 - TypeScript estricto, sin `any`. Imports de tipos con `import type`.
 - Colores y fuentes solo como tokens de `src/styles/global.css` (el lint bloquea `#hex` en
   componentes).
-- Cero JavaScript de cliente salvo necesidad real (hoy solo la mejora progresiva de formularios).
+- Cero JavaScript de cliente salvo necesidad real (hoy solo la mejora progresiva de formularios
+  y el banner de consentimiento, que solo existe si hay medición o publicidad configurada).
 - Los secretos (`SENDGRID_API_KEY`, `MAILERLITE_API_KEY`) solo se leen en `src/lib/` y
   `src/pages/api/` vía `astro:env/server`; los componentes no pueden importarlo (lint).
 - Ninguna variable de entorno es obligatoria: el build debe pasar sin ninguna.

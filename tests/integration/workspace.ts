@@ -31,7 +31,7 @@ export type Workspace = {
   exists: (relative: string) => boolean
   run: (script: string, args?: string[]) => RunResult
   /** Build de Astro con un dominio de prueba (sin pasar por pnpm). */
-  build: () => RunResult
+  build: (env?: Record<string, string>) => RunResult
   remove: () => void
 }
 
@@ -87,9 +87,10 @@ export function createWorkspace(): Workspace {
     run(script, args = []) {
       return node(dir, [script, ...args])
     },
-    build() {
+    build(env = {}) {
       return node(dir, ["node_modules/astro/bin/astro.mjs", "build"], {
         PUBLIC_SITE_URL: "https://www.sitio-de-prueba.invalid",
+        ...env,
       })
     },
     remove: () => fs.rmSync(dir, { recursive: true, force: true }),

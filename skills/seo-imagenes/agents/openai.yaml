@@ -1,0 +1,3 @@
+display_name: "SEO de imágenes"
+short_description: "Nombres SEO, alt y pie de foto para las imágenes"
+default_prompt: "Usa $seo-imagenes para renombrar las imágenes con buenas prácticas SEO y escribir su alt y caption."

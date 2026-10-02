@@ -1,8 +1,12 @@
 ---
+import { consent } from "~/config/consent"
 import { gtmId } from "~/lib/analytics"
+
+// Sin JavaScript no hay banner: GTM sin JS solo se carga si no se pide consentimiento.
+const enabled = gtmId && consent.mode === "off"
 ---
 
-{gtmId && (
+{enabled && (
   <noscript>
     <iframe
       src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}

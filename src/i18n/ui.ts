@@ -35,6 +35,22 @@ const es = {
   "newsletter.success": "¡Listo! Revisa tu correo para confirmar.",
   "newsletter.error": "No pudimos completar la suscripción. Intenta de nuevo.",
   "footer.rights": "Todos los derechos reservados.",
+  "consent.title": "Cookies en este sitio",
+  "consent.body":
+    "Este sitio usa cookies y tecnologías similares de terceros. Puedes aceptarlas, rechazarlas o elegir cuáles permitir.",
+  "consent.policyLink": "Política de cookies",
+  "consent.privacyLink": "Aviso de privacidad",
+  "consent.customize": "Elegir cookies",
+  "consent.analytics": "Medición",
+  "consent.analyticsHelp":
+    "Nos dice cuántas personas visitan el sitio y qué páginas usan.",
+  "consent.marketing": "Publicidad",
+  "consent.marketingHelp":
+    "Permite medir campañas y mostrar anuncios relevantes en otras plataformas.",
+  "consent.save": "Guardar selección",
+  "consent.reject": "Rechazar",
+  "consent.accept": "Aceptar todas",
+  "consent.settings": "Configurar cookies",
 } as const
 
 export type UiKey = keyof typeof es
@@ -68,6 +84,22 @@ const en: Record<UiKey, string> = {
   "newsletter.success": "Done! Check your inbox to confirm.",
   "newsletter.error": "We could not subscribe you. Please try again.",
   "footer.rights": "All rights reserved.",
+  "consent.title": "Cookies on this site",
+  "consent.body":
+    "This site uses third-party cookies and similar technologies. You can accept, reject or choose which ones to allow.",
+  "consent.policyLink": "Cookie policy",
+  "consent.privacyLink": "Privacy policy",
+  "consent.customize": "Choose cookies",
+  "consent.analytics": "Analytics",
+  "consent.analyticsHelp":
+    "Tells us how many people visit the site and which pages they use.",
+  "consent.marketing": "Advertising",
+  "consent.marketingHelp":
+    "Lets us measure campaigns and show relevant ads on other platforms.",
+  "consent.save": "Save selection",
+  "consent.reject": "Reject",
+  "consent.accept": "Accept all",
+  "consent.settings": "Cookie settings",
 }
 
 export const ui: Record<Locale, Record<UiKey, string>> = { es, en }
